@@ -1,4 +1,6 @@
-﻿# 骨架与落地（第五步）
+# 骨架与落地（第五步）
+
+> 官方从零教程：docs/cordis-tutorial（01-first-plugin → 07-into-the-harness）。本页骨架=教程契约的最小机器化；契约细节以官方教程+运行时实测为准（`references/official-docs.md`、`docs/upstream-doc-absorption.md`）。
 
 ## bundle 最小骨架
 - package.json: name/version/main lib/index.js/type module/exports(. 与 ./client)/files/dsh.bundle.patch/dsh.client.inject

@@ -23,7 +23,9 @@ read docs → read source → find examples → guess API → write a bit → ru
 
 Why should every Agent pay this cost all over again?
 
-**Maker is a tool for managing the engineering cost that plugin-ification freedom brings.** It does not just help an AI write plugins — it cares more about: should this thing become a plugin at all?
+The official docs have actually already joined the methodology together: `docs/cordis-tutorial` (a seven-chapter from-scratch tutorial), `docs/cookbook` (practical recipes) and `docs/capability-seams` (the full capability-seam map). But a tutorial teaches "how to write" — it does not keep watch over "what exactly is this interface right now" for you. Contract changes, easy-to-hit pitfalls and publish gates still get re-stepped-on by every Agent individually.
+
+**Maker's differentiation is not writing the tutorial again — it is mechanizing the tutorial**: tutorial contracts → check rules, the skeleton → scaffold templates, installation steps → vet/adopt, the official doc map → wizard references. It manages the engineering cost that plugin-ification freedom brings — not just helping an AI write plugins, it cares more about: should this thing become a plugin at all?
 
 ## Core principles
 
@@ -84,7 +86,7 @@ So this open-sourcing is not "Maker is finished." It is: **the internal experime
 
 ## Status
 
-v0.6.0 (initial public release, 2026-08-29)
+v0.6.5 (2026-08-30: full absorption & calibration against the official docs; first public release 0.6.0)
 
 ## Install
 
