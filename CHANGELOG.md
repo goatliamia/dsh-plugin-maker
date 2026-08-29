@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.6.1 — Maintenance sync (2026-08-29)
+
+- Upstream watch: add `packages/tools` (tool registry / pre-execute / post-execute / restrict contract) and `packages/webserver` (host route contract) hook points; hook-point table in `docs/upstream-watch.md` synced to v1.2.
+- Wizard reference: the automation-task form now points to the bridge-owned task board (five columns, official apiProxy dispatch; cron scheduling not yet available). The third-party task board this project previously used has been retired.
+
 ## 0.6.0 — Initial public release (2026-08-29)
 
 First public release of dsh-plugin-maker — the DeepSeek Harness plugin workshop.

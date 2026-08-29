@@ -32,13 +32,13 @@ node scripts/upstream-watch.mjs --apply # 开 issue + 更新 pinned（然后 pus
 
 为什么没直接用现成工具：上游（deepseek-harness）**不发 GitHub Releases、只有 tag**，且我们挂的是 monorepo 内具体路径而非 npm 依赖——Dependabot/Renovate 都覆盖不到"tag + 路径"这个组合，80 行脚本比引入黑盒更可控。
 
-## 当前挂点（v1.1）
+## 当前挂点（v1.2）
 
 原则：**哪里用到协议就挂哪里**——覆盖现行形态（插件/skill/preset 注入）与路线图形态（workflow/定时/后台任务/goal/hook）的全部协议使用点，全部挂官方。
 
 | 上游 | pin | 关心（按面） |
 |---|---|---|
-| deepseek-ai/deepseek-harness | dsh-v0.1.1-rc.2 | 插件面：bundle/client/settings/web；数据面：session/session-query；协作面：skill/preset/todo/subagent；路线图形态：workflow/schedule/jobs/goal/guard/hooks；契约源：docs/ + .agents/notes |
+| deepseek-ai/deepseek-harness | dsh-v0.1.1-rc.2 | 插件面：bundle/client/settings/web；数据面：session/session-query；协作面：skill/preset/todo/tools/subagent；运行面：tools 事件流与 webServer 路由（retro 挂载面）；路线图形态：workflow/schedule/jobs/goal/guard/hooks；契约源：docs/ + .agents/notes |
 | omdsh-dev/DSH-better-sidebar | v0.16.1 | src（betterSidebar 服务契约） |
 
-备注：task-board 出处在 `zhu1090093659/dsh-web`（npm @linxin666/dsh-client-ui-task-board，本地 0.3.5），待确认该仓 tag 形态后加入；`@deepseek-ai/dsh-tools` 出自官方 monorepo，随官方 tag 一并覆盖（其契约文档在官方 docs/tool-catalog）。
+备注：任务看板已吸收进 project-context-bridge v0.3.0（tasks 真源 + Cockpit 五列 + 官方 apiProxy 派发），第三方 `@linxin666/dsh-client-ui-task-board` 已退役卸载——不再挂其上游 zhu1090093659/dsh-web；`@deepseek-ai/dsh-tools` 出自官方 monorepo，随官方 tag 一并覆盖（其契约文档在官方 docs/tool-catalog）。

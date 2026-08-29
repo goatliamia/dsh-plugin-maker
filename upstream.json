@@ -17,6 +17,8 @@
         { "path": "packages/skill", "impact": "skill 装载/引用机制 → plugin-wizard 向导 skill" },
         { "path": "packages/preset", "impact": "preset 注入层/组合 → 开发规范注入段(editing-cordis-compositions)" },
         { "path": "packages/todo", "impact": "todo 工具契约 → 会话任务清单" },
+        { "path": "packages/tools", "impact": "tools 契约(register/defineTool/pre-execute/post-execute/restrict) → maker check 校验项 + dsh-retro 监听/守卫挂载面" },
+        { "path": "packages/webserver", "impact": "webServer 路由契约 → dsh-retro Phase③ 面板路由(只读 GET)" },
         { "path": "packages/subagent", "impact": "子代理派发/委派 → 多agent协同派活" },
         { "path": "packages/workflow", "impact": "workflow 工具 → 路线图形态(大规模编排)" },
         { "path": "packages/schedule", "impact": "定时调度 → 定时任务/自动化任务形态" },
