@@ -32,3 +32,4 @@ It runs safety gate → bump → pack → install into the web profile → commi
 - Commit messages are public-facing: feat/fix/docs/chore + a neutral summary, no internal jargon.
 - `upstream.json` declares the official hook points; when it changes, sync `docs/upstream-watch.md` in the same commit.
 - Standalone-first: the package must work with no companion plugins installed; collaboration-checklist entries hide automatically when their companions are absent.
+- **Every check rule must be paired with an `upstream.json` hook** — a rule encoding a contract that no watch path covers rots silently: upstream changes it, no alert fires, and the rule turns into "looks like it guards, actually misleads". When adding or changing a check rule, answer: "which upstream path will alert me when this contract changes?"
