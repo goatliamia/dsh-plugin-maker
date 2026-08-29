@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.2 — Narrow the research skill trigger (2026-08-29)
+
+- `five-step-research` no longer fires on bare trigger words like "调研/调查": its scope is now feasibility research before building something, and it explicitly excludes plain fact-checking ("does doc X exist", "is Y true") — those get answered directly, not through the five steps.
+
 ## 0.6.1 — Maintenance sync (2026-08-29)
 
 - Upstream watch: add `packages/tools` (tool registry / pre-execute / post-execute / restrict contract) and `packages/webserver` (host route contract) hook points; hook-point table in `docs/upstream-watch.md` synced to v1.2.
