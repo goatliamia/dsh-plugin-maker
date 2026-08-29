@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.6 — Reword the wizard roadmap note (2026-08-30)
+
+- README (zh/en) and the standalone guide: the "known gap" note no longer reads like internal implementation notes (self-registration stub / native card reuse). It now states it in user terms: the wizard ships as a skill with card conclusions and yes/no confirmations, no extra UI needed; an interactive form-card wizard is on the roadmap.
+
 ## 0.6.5 — Absorb the official docs; calibrate check rules (2026-08-30)
 
 - Read the official plugin docs at `dsh-v0.1.1-rc.2` (cordis-tutorial 7 chapters, cookbook 9 recipes, capability-seams) and archived the three-layer classification plus the rule-by-rule comparison in `docs/upstream-doc-absorption.md` — every check rule now states its evidence source (runtime code / official docs) and its upstream watch hook.

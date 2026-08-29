@@ -27,7 +27,7 @@ skill 由 maker 自己的 host 半经原生 `ctx.skills.registerProvider` 注册
 
 ## 已知缺口
 
-- **交互式向导卡片 UI 未完成**：`lib/client.js` 是自注册空壳（无 UI）；五步向导以文本版 skill 交付（已原生注册）。一步步点选的图形表单卡片在升级路线，不在当前版本。工具结果已用原生卡片词汇呈现（`presentCall`/`presentResult` → generic card）。
+- **交互式表单卡片未完成**：向导以 skill 形态交付（结论卡片 + 每步「对 / 改」确认门，已原生注册，无需额外界面）；一步步点选的图形表单卡片在升级路线，不在当前版本。
 
 ## 安装
 

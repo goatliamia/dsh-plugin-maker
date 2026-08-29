@@ -76,7 +76,7 @@ So this open-sourcing is not "Maker is finished." It is: **the internal experime
 ## Known gaps and roadmap
 
 - Most mature today: the plugin form (generate + validate + wizards); workflow / script / skill / preset forms are derived by the wizard from the need — no form menus.
-- Interactive wizard card UI unfinished (`lib/client.js` is a self-registration stub): report cards reuse native tool cards and confirmation gates reuse `ask_user_question`; a graphical form-card UI is on the roadmap.
+- The wizard ships as a skill: conclusions are presented as cards with a yes/no confirmation at each step — no extra UI needed. A click-through interactive form-card wizard is on the roadmap, not in the current version.
 
 ## Layout
 
