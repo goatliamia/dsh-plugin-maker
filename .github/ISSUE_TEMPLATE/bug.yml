@@ -1,0 +1,46 @@
+name: Bug 报告 / Bug report
+description: 描述一个 bug。Describe a bug with symptom, reproduction, impact and root cause.
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: input
+    id: dsh-version
+    attributes:
+      label: DSH 版本 / DSH version
+      placeholder: "0.1.1-rc.2（dsh --version）"
+    validations:
+      required: true
+  - type: input
+    id: maker-version
+    attributes:
+      label: maker 版本 / maker version
+      placeholder: "0.5.4"
+  - type: textarea
+    id: symptom
+    attributes:
+      label: 现象 / What happened
+      description: 发生了什么（用户可见的表现，不写猜测）
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 复现步骤 / How to reproduce
+      description: 最小复现步骤（命令/操作序列）
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: 影响 / Impact
+      description: 影响范围、谁被波及、严重程度
+  - type: textarea
+    id: root-cause
+    attributes:
+      label: 根因 / Root cause（不确定就写「待查」/ "unknown"）
+      description: 为什么会发生。本仓库的约定：只描述事实与推断，修复由维护者授权后进行。
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: 建议修复方向 / Suggested fix
+      description: 你认为该怎么修（可选）

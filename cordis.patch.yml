@@ -1,0 +1,4 @@
+# dsh-plugin-maker bundle patch
+- insert:
+    - id: dsh-plugin-maker
+      name: dsh-plugin-maker

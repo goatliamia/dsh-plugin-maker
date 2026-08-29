@@ -1,0 +1,28 @@
+name: 想法 / 功能建议 Idea or feature request
+description: 提一个新功能、改进或开放问题。Propose a feature, improvement or open question.
+title: "[Idea] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: 想满足什么 / The need
+      description: 一句话说清"想满足的状态"，而不是实现方案（方案 ≠ 需求，向导会把方案翻译回需求）。
+      placeholder: "例：希望工作区有未提交改动时能收到提醒（而不是：希望做一个 git 提醒插件）"
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: 场景 / Context
+      description: 给谁用（自己 / 他人 / 公众）？为什么现有能力满足不了？
+  - type: textarea
+    id: criteria
+    attributes:
+      label: 完成判据 / Done criteria
+      description: 做成什么样算完成（验收标准）
+  - type: textarea
+    id: research
+    attributes:
+      label: 已做过的调研 / Research done so far（可选）
+      description: 平台能力 / 同生态轮子 / 行业参照——已知的任何线索

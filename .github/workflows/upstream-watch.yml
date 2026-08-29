@@ -1,0 +1,36 @@
+name: upstream-watch
+
+# 上游 tag 盯梢：每周一 UTC 02:17 跑一次，也可手动触发。
+# 逻辑：upstream-watch.mjs --apply → 有挂点命中就开 issue(去重) + 更新 upstream.json 的 pinned → 自动提交。
+on:
+  schedule:
+    - cron: '17 2 * * 1'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Run upstream watch
+        run: node scripts/upstream-watch.mjs --apply
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - name: Commit pin bumps
+        if: success()
+        run: |
+          if git diff --quiet -- upstream.json; then
+            echo "no pin change"
+          else
+            git config user.name 'upstream-watch[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m 'chore(upstream): bump pinned tags' -- upstream.json
+            git push
+          fi
