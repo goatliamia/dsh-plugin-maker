@@ -86,7 +86,7 @@ So this open-sourcing is not "Maker is finished." It is: **the internal experime
 
 ## Status
 
-v0.6.5 (2026-08-30: full absorption & calibration against the official docs; first public release 0.6.0)
+See GitHub tags for the current release (first public release 0.6.0; ongoing releases since 2026-08-30; installed version in package.json)
 
 ## Install
 

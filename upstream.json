@@ -8,25 +8,20 @@
       "repo": "deepseek-ai/deepseek-harness",
       "pinned": "dsh-v0.1.1-rc.2",
       "watch": [
-        { "path": "packages/bundle", "impact": "打包契约(dsh.bundle.patch/cordis.patch.yml) → plugin-maker scaffold+check" },
-        { "path": "packages/client", "impact": "client 自注册契约(__ModuleLoader__/插件装载) → 两个插件 lib/client.js" },
-        { "path": "packages/session", "impact": "会话事件/持久化结构 → idea-board 总结同步读会话" },
-        { "path": "packages/session-query", "impact": "会话搜索(默认关) → idea-board 可选能力" },
-        { "path": "packages/settings", "impact": "settings seam/slot 契约 → 插件设置卡(未来)" },
-        { "path": "packages/web", "impact": "Web 路由/主题 token/Slot → 前端 tab 与样式变量" },
+        { "path": "packages/bundle", "impact": "打包契约(dsh.bundle.patch/cordis.patch.yml) → scaffold+check" },
+        { "path": "packages/client", "impact": "client 自注册契约(__ModuleLoader__/插件装载) → check" },
+        { "path": "packages/settings", "impact": "settings seam/slot 契约 → 向导形态判断（设置卡）" },
+        { "path": "packages/web", "impact": "Web 路由/主题 token/Slot → 向导形态判断（客户端 UI/槽位）" },
         { "path": "packages/skill", "impact": "skill 装载/引用机制 → plugin-wizard 向导 skill" },
-        { "path": "packages/preset", "impact": "preset 注入层/组合 → 开发规范注入段(editing-cordis-compositions)" },
-        { "path": "packages/todo", "impact": "todo 工具契约 → 会话任务清单" },
-        { "path": "packages/tools", "impact": "tools 契约(register/defineTool/pre-execute/post-execute/restrict) → maker check 校验项 + dsh-retro 监听/守卫挂载面" },
-        { "path": "packages/webserver", "impact": "webServer 路由契约 → dsh-retro Phase③ 面板路由(只读 GET)" },
-        { "path": "packages/subagent", "impact": "子代理派发/委派 → 多agent协同派活" },
-        { "path": "packages/workflow", "impact": "workflow 工具 → 路线图形态(大规模编排)" },
-        { "path": "packages/schedule", "impact": "定时调度 → 定时任务/自动化任务形态" },
-        { "path": "packages/jobs", "impact": "后台任务 → 路线图形态(后台运行)" },
-        { "path": "packages/goal", "impact": "goal 工具 → 路线图形态(长目标)" },
-        { "path": "packages/guard", "impact": "守卫/审批栈 → 硬约束层(铁律机制化)" },
-        { "path": "packages/hooks", "impact": "hook 协议 → 路线图形态(挂点回调)" },
-        { "path": "docs", "impact": "官方契约文档(cordis-primer/tool-catalog/web-styling) → maker 校验规则与样式变量校准源" },
+        { "path": "packages/preset", "impact": "preset 注入层/组合 → 向导形态判断（agent 预设）" },
+        { "path": "packages/tools", "impact": "tools 契约(register/defineTool/pre-execute/post-execute/restrict) → check 校验项与 vet 文案" },
+        { "path": "packages/workflow", "impact": "workflow 工具 → 路线图形态（大规模编排）" },
+        { "path": "packages/schedule", "impact": "定时调度 → 路线图形态（定时任务）" },
+        { "path": "packages/jobs", "impact": "后台任务 → 路线图形态（后台运行）" },
+        { "path": "packages/goal", "impact": "goal 工具 → 路线图形态（长目标）" },
+        { "path": "packages/guard", "impact": "守卫/审批栈 → 路线图形态（硬约束层）" },
+        { "path": "packages/hooks", "impact": "hook 协议 → 路线图形态（挂点回调）" },
+        { "path": "docs", "impact": "官方契约文档(cordis-primer/tool-catalog) → check 校验规则校准源" },
         { "path": ".agents/notes", "impact": "官方实现日记 → 解读变更的一手材料" }
       ]
     },
@@ -34,7 +29,7 @@
       "repo": "omdsh-dev/DSH-better-sidebar",
       "pinned": "v0.16.1",
       "watch": [
-        { "path": "src", "impact": "betterSidebar 服务契约(registerTab) → idea-board「想法」tab" }
+        { "path": "src", "impact": "betterSidebar 服务契约(registerTab) → 向导生态判断（第三方侧边栏挂载先例）" }
       ]
     }
   ]

@@ -32,5 +32,5 @@ description: 开发前的技术可行性研究（五步分类调查）。仅当�
 
 ## 铁律
 
-- 挂载点必须查运行时契约（cordis_inspect），不凭记忆（反例：tools/result 的 dispatch 根 ctx 收不到，post-execute 才全工具触发——都是实测出来的）
-- waterfall 事件监听器必须无条件 return next()（坏监听器锁死全部工具，只能重启）
+- 挂载点必须查运行时契约（cordis_inspect），不凭记忆（反例：required:false 导致启动崩溃——都是实测出来的）
+- waterfall 监听纪律由 `plugin_maker_check` 规则机器拦截；运行期监听教训归 dsh-retro，本 skill 不复制

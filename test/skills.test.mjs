@@ -17,7 +17,7 @@ check(names.length === 2 && names.every((n, i) => n === expectNames[i]), '发现
 check(candidates.every((c) => c.invocation.modelInvocable && c.invocation.userInvocable && c.source === 'bundled' && c.rank === 600 && c.resourceBase?.kind === 'directory'), 'candidate 携带 invocation/source/rank/resourceBase')
 
 const wizard = await provider.get(candidates.find((c) => c.name === 'plugin-studio-wizard'))
-check(!!wizard && wizard.content.startsWith('# Plugin Studio 向导') && !wizard.content.startsWith('---'), 'get 剥 frontmatter：正文以标题开头')
+check(!!wizard && wizard.content.startsWith('# 需求满足向导') && !wizard.content.startsWith('---'), 'get 剥 frontmatter：正文以标题开头')
 
 const research = await provider.get(candidates.find((c) => c.name === 'five-step-research'))
 check(!!research && research.content.startsWith('# 五步分类调查'), 'get research 正文正确')
