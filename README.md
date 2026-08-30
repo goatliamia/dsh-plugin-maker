@@ -55,7 +55,7 @@ DeepSeek Harness 的理念是 "Everything is a Plugin"：能力都可以被组�
 ## 怎么用
 
 1. **生成**：`plugin_maker_scaffold` —— 插件名 + 一句话描述，生成合规骨架。
-2. **校验**：`plugin_maker_check` —— 契约（bundle/自注册/id=包名/required）、发布合规、升级基线、跨版本迁移事实卡（0.1.2 破坏性变更 ⚠️），一目了然。
+2. **校验**：`plugin_maker_check` —— 契约（bundle/自注册/id=包名/required）、发布合规、升级基线、跨版本迁移事实卡（0.1.2 破坏性变更 ⚠️；升级 0.1.2 前跑一遍，⚠️ 项即待迁移点），一目了然。
 3. **装**：`pnpm pack` + `dsh plugin --profile web add`。
 
 **向导**：两个自带 skill（`/` 斜杠菜单可触发，模型也会按触发词自动调用）：
@@ -77,7 +77,7 @@ Maker 已经完成了自己的一次解耦：它最初和作者的一些配套�
 
 - 现阶段最完善 = 插件形态（生成 + 校验 + 向导）；workflow / 脚本 / skill / preset 等形态由向导按需求推导，不弹形态菜单。
 - 向导以 skill 形态交付：结论以文本呈现、每步末尾一个「对 / 改」确认门（`ask_user_question` 交互卡，实机可弹），全程无需额外界面；一步步点选的交互式表单卡片在路线图上，不在当前版本。
-- **0.1.2 迁移事实卡已吸收 20 条**（数据文件 `facts/migrations.mjs`，来源逐条标注；apiProxy 已实测，其余社区验证、待随自测升级 verified 状态）；后续版本事实=新增数据段，不改代码。升级 0.1.2 前跑一遍 `plugin_maker_check`，⚠️ 项即待迁移点。
+- **0.1.2 迁移事实卡已吸收 20 条**（数据文件 `facts/migrations.mjs`，来源逐条标注；apiProxy 已实测，其余社区验证、待随自测升级 verified 状态）；后续版本事实=新增数据段，不改代码。
 
 ## 目录
 

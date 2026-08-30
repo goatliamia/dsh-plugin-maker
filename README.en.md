@@ -55,7 +55,7 @@ None of this is invented from nothing: scaffolds, static checks, codemods, depen
 ## Usage
 
 1. **Generate**: `plugin_maker_scaffold` — plugin name + one-line description in, a compliant skeleton out.
-2. **Validate**: `plugin_maker_check` — contracts (bundle/self-registration/id=package-name/required), publish compliance, upgrade baseline, cross-version migration fact cards (0.1.2 breaking-change flags), ✅/❌/⚠️ at a glance.
+2. **Validate**: `plugin_maker_check` — contracts (bundle/self-registration/id=package-name/required), publish compliance, upgrade baseline, cross-version migration fact cards (0.1.2 breaking-change flags; run it before moving to 0.1.2 — every ⚠️ is a migration point), ✅/❌/⚠️ at a glance.
 3. **Install**: `pnpm pack` + `dsh plugin --profile web add`.
 
 **Wizards**: two bundled skills (available from the `/` slash menu; the model also auto-invokes them by trigger words):
@@ -77,7 +77,7 @@ So this open-sourcing is not "Maker is finished." It is: **the internal experime
 
 - Most mature today: the plugin form (generate + validate + wizards); workflow / script / skill / preset forms are derived by the wizard from the need — no form menus.
 - The wizard ships as a skill: conclusions are presented as text with a yes/no confirmation gate at each step (`ask_user_question` interactive card, verified working) — no extra UI needed. A click-through interactive form-card wizard is on the roadmap, not in the current version.
-- **20 migration fact cards for 0.1.2 have been absorbed** (data file `facts/migrations.mjs`, each fact carries its evidence source; the apiProxy one is self-verified, the rest are community-verified pending our own migration). Future version facts are new data blocks, no code changes. Run `plugin_maker_check` before moving to 0.1.2 — every ⚠️ is a migration point.
+- **20 migration fact cards for 0.1.2 have been absorbed** (data file `facts/migrations.mjs`, each fact carries its evidence source; the apiProxy one is self-verified, the rest are community-verified pending our own migration). Future version facts are new data blocks, no code changes.
 
 ## Layout
 

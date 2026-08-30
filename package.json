@@ -1,6 +1,6 @@
 {
   "name": "dsh-plugin-maker",
-  "version": "0.6.15",
+  "version": "0.6.16",
   "description": "DSH plugin workshop: wizard + scaffold + check + vet/adopt + checklist + impact for DeepSeek Harness plugin development.",
   "type": "module",
   "main": "lib/index.js",
