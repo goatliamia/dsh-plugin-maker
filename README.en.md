@@ -58,7 +58,7 @@ None of this is invented from nothing: scaffolds, static checks, codemods, depen
 2. **Validate**: `plugin_maker_check` — contracts (bundle/self-registration/id=package-name/required), publish compliance, upgrade baseline, ✅/❌ at a glance.
 3. **Install**: `pnpm pack` + `dsh plugin --profile web add`.
 
-**Wizards**: two bundled skills (available from the `/` slash menu; the model also auto-invokes them by trigger words). The GUI renders them natively as "Skill row → Instructions card":
+**Wizards**: two bundled skills (available from the `/` slash menu; the model also auto-invokes them by trigger words):
 
 - `/plugin-studio-wizard` — needs-first wizard: understand the need (two upfront questions: who is it for × why build) → fulfillment path check (already installed → ecosystem → build). Recommends existing solutions instead of building when possible; only true gaps go to build (form derivation → research → plan & compliance → delivery). Judgment belongs to the wizard, approval to the user.
 - `/five-step-research` — categorized research (platform capability / same ecosystem / industry reference / engineering practice / need validation).
@@ -76,7 +76,7 @@ So this open-sourcing is not "Maker is finished." It is: **the internal experime
 ## Known gaps and roadmap
 
 - Most mature today: the plugin form (generate + validate + wizards); workflow / script / skill / preset forms are derived by the wizard from the need — no form menus.
-- The wizard ships as a skill: conclusions are presented as cards with a yes/no confirmation at each step — no extra UI needed. A click-through interactive form-card wizard is on the roadmap, not in the current version.
+- The wizard ships as a skill: conclusions are presented as text with a yes/no confirmation gate at each step (`ask_user_question` interactive card, verified working) — no extra UI needed. A click-through interactive form-card wizard is on the roadmap, not in the current version.
 
 ## Layout
 

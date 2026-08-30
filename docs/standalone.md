@@ -15,7 +15,7 @@ maker 是纯开发期机械工具，无运行时硬依赖：单独安装即可�
 
 ## skill 面（全可用）
 
-- `skills/plugin-wizard`：需求满足向导（文本版，已原生注册——`/plugin-studio-wizard` 斜杠触发或模型按触发词自动调用，GUI 原生渲染 Instructions 卡片；简报卡复用工具卡、确认门复用 `ask_user_question`，不新造 UI；图形表单卡片未完成，见下）
+- `skills/plugin-wizard`：需求满足向导（文本版，已原生注册——`/plugin-studio-wizard` 斜杠触发或模型按触发词自动调用；呈现为文本输出 + `ask_user_question` 确认门（实机可弹），不依赖卡片渲染；图形表单卡片未完成，见下）
 - `skills/research`：分类调研（`/five-step-research`）
 
 skill 由 maker 自己的 host 半经原生 `ctx.skills.registerProvider` 注册（rank 600=bundled），单一真源 = 插件包内 `skills/` 目录，随包发版更新；项目/用户 skill 根目录（`.dsh/skills`、`~/.dsh/skills` 等）的同名 skill 可覆盖。
@@ -27,7 +27,7 @@ skill 由 maker 自己的 host 半经原生 `ctx.skills.registerProvider` 注册
 
 ## 已知缺口
 
-- **交互式表单卡片未完成**：向导以 skill 形态交付（结论卡片 + 每步「对 / 改」确认门，已原生注册，无需额外界面）；一步步点选的图形表单卡片在升级路线，不在当前版本。
+- **交互式表单卡片未完成**：向导以 skill 形态交付（文本结论 + 每步「对 / 改」确认门，已原生注册，无需额外界面）；一步步点选的图形表单卡片在升级路线，不在当前版本。
 
 ## 安装
 

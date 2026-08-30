@@ -17,7 +17,7 @@
 
 ## 输出：需求声明卡
 
-格式（简报卡，`presentResult` → generic card）：
+格式（文本简报；工具已声明 `presentResult` 意图，当前 Web UI 不渲染 generic card，先以文本输出）：
 
 ```
 📋 需求声明
