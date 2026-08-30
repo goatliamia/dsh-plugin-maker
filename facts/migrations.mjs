@@ -113,10 +113,10 @@ export const MIGRATION_FACTS = [
         review: true,
       },
       {
-        pattern: '"@deepseek-ai/dsh-[a-z-]+":\\s*"\\^?0\\.(0\\.|1\\.[01])',
-        message: 'framework 依赖钉在 0.0.x/0.1.0/0.1.1 线 → bump 到目标线（脚本化 bump 见 william scripts/bump-deps.mjs）',
-        source: 'william hops A§1',
-        verified: false,
+        pattern: '"@deepseek-ai/dsh-[a-z-]+":\\s*"0\\.(0\\.|1\\.[01])',
+        message: 'framework 依赖被精确钉死在 0.0.x/0.1.0/0.1.1 线（无 ^ 范围）→ 放宽为 ^ 范围（如 "^0.1.1-rc.2" 即接受 0.1.2 线；脚本化 bump 见 william scripts/bump-deps.mjs）',
+        source: 'william hops A§1（maker 自身 2026-08-30 迁移：peer 从 "0.1.1-rc.2" 放宽为 "^0.1.1-rc.2"）',
+        verified: true,
       },
       {
         pattern: '"@deepseek-ai/cordis":\\s*"\\^?4\\.0\\.[01]([^0-9]|$)',

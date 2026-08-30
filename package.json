@@ -1,6 +1,6 @@
 {
   "name": "dsh-plugin-maker",
-  "version": "0.6.17",
+  "version": "0.6.18",
   "description": "DSH plugin workshop: wizard + scaffold + check + vet/adopt + checklist + impact for DeepSeek Harness plugin development.",
   "type": "module",
   "main": "lib/index.js",
@@ -38,13 +38,11 @@
     },
     "client": {
       "platform": "web",
-      "inject": [
-        "@deepseek-ai/dsh-client-runtime"
-      ]
+      "inject": []
     }
   },
   "peerDependencies": {
-    "@deepseek-ai/dsh-tools": "0.1.1-rc.2"
+    "@deepseek-ai/dsh-tools": "^0.1.1-rc.2"
   },
   "engines": {
     "node": ">=18"

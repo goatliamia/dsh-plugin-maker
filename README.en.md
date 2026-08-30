@@ -77,7 +77,7 @@ So this open-sourcing is not "Maker is finished." It is: **the internal experime
 
 - Most mature today: the plugin form (generate + validate + wizards); workflow / script / skill / preset forms are derived by the wizard from the need — no form menus.
 - The wizard ships as a skill: conclusions are presented as text with a yes/no confirmation gate at each step (`ask_user_question` interactive card, verified working) — no extra UI needed. A click-through interactive form-card wizard is on the roadmap, not in the current version.
-- **20 migration fact cards for 0.1.2 have been absorbed** (data file `facts/migrations.mjs`, each fact carries its evidence source; the apiProxy one is self-verified, the rest are community-verified pending our own migration). Future version facts are new data blocks, no code changes.
+- **20 migration fact cards for 0.1.2 have been absorbed** (data file `facts/migrations.mjs`, each fact carries its evidence source; apiProxy and the dependency-pin facts are self-verified, the rest are community-verified pending our own migration). **maker itself is 0.1.2-ready** (peer widened to a `^` range, dsh-client-runtime references removed from templates and examples, self-check clean). Future version facts are new data blocks, no code changes.
 
 ## Layout
 
