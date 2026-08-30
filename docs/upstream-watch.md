@@ -11,8 +11,9 @@ DSH 0.1.1 大更新落地时，靠一次临时考古（tag 间 compare + 读实�
 1. **挂点声明**：`upstream.json` —— 每个上游：pin 的 tag + 关心的路径 + 该路径变化影响插件的哪部分。这是"在哪里关联了它"的唯一事实源。
 2. **检测**：`scripts/upstream-watch.mjs`（零依赖，Node ≥18）——拉两个 tag 的全文件树做集合差（比 compare API 的 300 文件上限可靠），命中挂点路径才报告。
 3. **落地**：
-   - GitHub Actions 周更 cron（`.github/workflows/upstream-watch.yml`）自动跑 `--apply`：开 issue（label `upstream-watch`，同题去重）+ 更新 pinned 并自动提交。
+   - GitHub Actions **日更** cron（`.github/workflows/upstream-watch.yml`，频率可自改）自动跑 `--apply`：开 issue（label `upstream-watch`，同题去重）+ 更新 pinned 并自动提交。**没变化=零输出零提交**（只发变化时的报告，平时安静）。
    - 维护者消费：`gh issue list --label upstream-watch` → 读官方 `.agents/notes` 对应笔记解读变更意图 → 评估影响面 → 适配修复 → 关 issue。
+   - **帮第三方插件挂靠**：`plugin_maker_vet` 对任何插件目录附「挂靠建议」（用了哪些官方协议面 → 建议挂哪些路径），插件作者把清单写进自己的 `upstream.json` 即可复用本机制。
 
 ## 手动命令
 

@@ -65,7 +65,7 @@ None of this is invented from nothing: scaffolds, static checks, codemods, depen
 
 ## Standalone use
 
-maker is a pure development-time tool: all six tools and two skills have no hard dependencies and work standalone. Collaboration entries in the checklists (cross-session coordination, lesson-capture guidance) hide automatically when the corresponding companion plugins are not installed. See `docs/standalone.md`.
+maker is a pure development-time tool: all six tools and two skills have no hard dependencies and work standalone. Collaboration entries in the checklists (cross-session coordination, lesson-capture guidance) hide automatically when the corresponding companion plugins are not installed. **check/vet work on any plugin directory** (not just maker-made ones): vet adds "hook suggestions" — which official surfaces the plugin uses and which upstream paths to watch (help only, nothing is written); upstream-watch automation runs **daily** by default (cron is yours to tune), and stays silent with zero output and zero commits when nothing changed. See `docs/standalone.md` and `docs/upstream-watch.md`.
 
 ## Why open source now
 

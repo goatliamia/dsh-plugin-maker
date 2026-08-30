@@ -1,5 +1,6 @@
 // 迁移事实卡回归测试：pattern 可编译、命中形态、maker 自检白名单（bug 002 教训的机制化）
 import { MIGRATION_FACTS } from '../facts/migrations.mjs'
+import { hookSuggestions } from '../lib/check-core.mjs'
 import { readFileSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -37,5 +38,12 @@ check(!hit(1, indexText), 'maker 自身 lib/index.js 不被 CallId 事实命中�
 check(!hit(2, indexText), 'maker 自身不被 deepFreeze 导入事实命中')
 check(!hit(3, indexText), 'maker 自身不被 JsonValue 导入事实命中')
 
-console.log('RESULT: ' + pass + '/14')
-if (pass !== 14) process.exitCode = 1
+// 挂靠建议（帮助形态）：包引用与 inject 服务名 → 上游挂点
+const h1 = hookSuggestions("import { defineTool } from '@deepseek-ai/dsh-tools'\nexport const inject = ['apiProxy']")
+check(h1.some(h => h.path === 'packages/core/tools'), '挂靠建议：dsh-tools 引用 → packages/core/tools')
+check(h1.some(h => h.path === 'packages/host/apiproxy'), '挂靠建议：inject apiProxy → packages/host/apiproxy')
+check(hookSuggestions('普通文本无任何官方面').length === 0, '挂靠建议：无官方面使用 → 空')
+check(h1.length === new Set(h1.map(h => h.path)).size, '挂靠建议：同挂点去重')
+
+console.log('RESULT: ' + pass + '/18')
+if (pass !== 18) process.exitCode = 1
