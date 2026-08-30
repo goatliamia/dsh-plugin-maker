@@ -1,96 +1,404 @@
-# dsh-plugin-maker — The Plugin Workshop
+# dsh-plugin-maker
 
 [中文](./README.md) | English
 
-> **Everything is a plugin — but not everyone is a plugin developer.** This workshop exists to close that gap.
-> **First judge what deserves to be a plugin.** That is its first principle in everything it does.
+> **Everything is a Plugin, but not everyone is a plugin developer.** Maker exists to handle the other half.
+>
+> **Before building a plugin, ask whether it needs to exist at all.**
 
-## Why it exists
+`dsh-plugin-maker` is a toolkit for developing plugins for [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness).
 
-DeepSeek Harness is built on "Everything is a Plugin": capabilities can be composed, replaced and extended. But freedom has a cost — plugin-ification moves work the platform used to own onto the user:
+It does not decide what a plugin should be. Instead, it helps answer a few practical questions before development begins:
 
-- What is the actual need?
-- Does the Harness already support it natively?
-- Does the ecosystem already have a plugin for it?
-- What exactly is this interface now? Which parts are fixed contracts?
-- Will this plugin keep working after the next DSH update?
+* Is this already supported by DSH?
+* Is there an existing plugin that can be reused?
+* Does this actually need to be a plugin?
+* What does this interface really look like today?
+* Which parts are established contracts?
+* After a DSH upgrade, which parts actually need to be re-verified?
 
-For a human developer these are just engineering chores. For an Agent, they mean paying the same cognitive cost again every single time:
+**Maker focuses on reducing the repeated engineering cost of plugin development.**
 
+---
+
+## Why Maker
+
+One of the core ideas of DSH is:
+
+> **Everything Is a Plugin.**
+
+Capabilities can be composed, replaced, and extended.
+
+But greater freedom also moves more engineering work onto developers.
+
+A seemingly simple plugin may require:
+
+```text
+Understand the requirement
+→ check the DSH docs
+→ inspect the source
+→ find existing implementations
+→ understand the interface
+→ create the skeleton
+→ implement
+→ verify
+→ package
+→ install
+→ verify again
 ```
-read docs → read source → find examples → guess API → write a bit → run → fail → search again → retry
+
+When these steps are repeated from scratch, both developers and agents pay the same costs again and again.
+
+DSH already provides a strong set of tutorials, cookbooks, and capability-seam documentation. They mostly answer:
+
+> **“How do I use DSH?”**
+
+Maker focuses on a slightly different question:
+
+> **“How do I turn those established practices into repeatable development workflows?”**
+
+---
+
+## Core Ideas
+
+### 1. Reuse before invent
+
+Before writing code, check:
+
+```text
+Existing local capability
+↓
+Existing ecosystem plugin
+↓
+Native DSH capability
+↓
+Mature engineering practice
+↓
+Only then: build it yourself
 ```
 
-Why should every Agent pay this cost all over again?
+Sometimes the most useful answer Maker can give is not:
 
-The official docs have actually already joined the methodology together: `docs/cordis-tutorial` (a seven-chapter from-scratch tutorial), `docs/cookbook` (practical recipes) and `docs/capability-seams` (the full capability-seam map). But a tutorial teaches "how to write" — it does not keep watch over "what exactly is this interface right now" for you. Contract changes, easy-to-hit pitfalls and publish gates still get re-stepped-on by every Agent individually.
+> “Here is a new plugin.”
 
-**Maker's differentiation is not writing the tutorial again — it is mechanizing the tutorial**: tutorial contracts → check rules, the skeleton → scaffold templates, installation steps → vet/adopt, the official doc map → wizard references. It manages the engineering cost that plugin-ification freedom brings — not just helping an AI write plugins, it cares more about: should this thing become a plugin at all?
+but:
 
-## Core principles
+> **“You do not need to build this.”**
 
-**① Reuse before invent — before writing anything, ask once: do we really need to write it?**
+If an existing solution only covers part of the requirement, the preferred approach is:
 
+> **Reuse what already works and build only the missing part.**
+
+---
+
+### 2. Let deterministic mechanisms handle deterministic engineering work
+
+Some tasks are not worth asking a model to rediscover every time.
+
+For example:
+
+* plugin directory structure;
+* entry-point formats;
+* bundle configuration;
+* exports;
+* registration patterns;
+* verified DSH contracts;
+* release requirements.
+
+These are better expressed as:
+
+> **Repeatable, machine-verifiable engineering operations.**
+
+Maker therefore provides:
+
+| Tool        | Purpose                                                                         |
+| ----------- | ------------------------------------------------------------------------------- |
+| `scaffold`  | Generate a verified minimal plugin skeleton                                     |
+| `check`     | Validate plugin contracts, release requirements, and known compatibility issues |
+| `vet`       | Inspect an existing plugin before adopting it                                   |
+| `adopt`     | Apply a small set of safe, deterministic changes automatically                  |
+| `impact`    | Scan references and estimate the impact of a change                             |
+| `checklist` | Turn confirmed development actions into executable checks                       |
+
+---
+
+### 3. Watch only what the plugin actually depends on
+
+DSH is evolving quickly.
+
+A plugin may depend on only a small number of runtime, package, or client surfaces.
+
+Maker therefore does not try to treat every DSH change as equally relevant:
+
+```text
+Actual plugin dependencies
+↓
+Declare relevant upstream anchors
+↓
+Watch upstream changes
+↓
+If an anchor changes
+↓
+Re-verify the relevant part
 ```
-Already installed? → In the ecosystem? → Native to DSH? → A more mature pattern in the industry? → Only then: is it worth building?
+
+The goal is not:
+
+> “What changed everywhere in DSH?”
+
+but:
+
+> **“What changed that might actually affect this plugin?”**
+
+---
+
+## Included Skills
+
+### `/plugin-studio-wizard`
+
+A guided workflow for plugin requirements.
+
+It starts with:
+
+```text
+Existing local capability?
+↓
+Existing ecosystem solution?
+↓
+Native DSH support?
+↓
+Does this really need to be built?
 ```
 
-The most common disease of open ecosystems is more and more plugins while the actually-needed capabilities stay unclear. So sometimes Maker's most important output is not "here is a new plugin" — it is: **"Don't build it. The foundation already solves it."** A good dev tool must not only tell an Agent *how* to do things, but also let it clearly say *not needed*. The test is not just "does it exist", but also **"can it plug into your own engineering loop"** — a wheel that exists but cannot connect to your actual workflow means: reuse the overlapping part, build the minimum for the gap.
+Only when a new implementation is actually needed does it move into the implementation path.
 
-**② The model handles what needs judgment; deterministic mechanisms handle what does not deserve to consume model intelligence.**
+The wizard assists with the decision; it does not replace the developer's final authorization.
 
-Fixed directory structures, entry forms, export requirements, bundle configs, verified API contracts — if the model regenerates these freely every time, every time is a new chance to get them wrong. Hence:
+### `/five-step-research`
 
-| Mechanism | What it does |
-|---|---|
-| **Scaffold** | Generates a verified skeleton instead of guessing from an empty directory |
-| **Check** | Turns known Harness contracts into static checks (plus cross-version migration fact cards — e.g. the apiProxy removal in 0.1.2, flagged with a ⚠️ migration hint) |
-| **Vet** | Examines third-party plugins before wiring them in and trial-erroring |
-| **Adopt** | Auto-applies the small set of safe, deterministic fixes |
-| **Impact** | Scans references before a change, removing "I don't think I affected anything else" guesswork |
-| **Upstream** | DSH is still moving fast — watch the official hook points, get an automatic alert when they change, never assume today's working plugin works tomorrow |
+A lightweight research workflow for plugin development:
 
-None of this is invented from nothing: scaffolds, static checks, codemods, dependency updates and impact analysis are all mature software-engineering precedents. What is genuinely interesting is that they are now being placed inside an **Agent Harness that can act on its own**. Traditional engineering assumes "the human knows what to do; the tool just makes it faster." Agent engineering adds a new problem: **the Agent itself must be kept on the correct engineering path.** That is what Maker tries to solve: not making the model smarter, but reducing the chances that an unreliable environment strips away abilities it already has.
+```text
+Platform capabilities
+→
+Ecosystem solutions
+→
+Industry references
+→
+Engineering practice
+→
+Requirement validation
+```
+
+Use it to quickly determine whether something is actually worth building before implementation starts.
+
+---
 
 ## Usage
 
-1. **Generate**: `plugin_maker_scaffold` — plugin name + one-line description in, a compliant skeleton out.
-2. **Validate**: `plugin_maker_check` — contracts (bundle/self-registration/id=package-name/required), publish compliance, upgrade baseline, cross-version migration fact cards (0.1.2 breaking-change flags; run it before moving to 0.1.2 — every ⚠️ is a migration point), ✅/❌/⚠️ at a glance.
-3. **Install**: `pnpm pack` + `dsh plugin --profile web add`.
+### Scaffold a plugin
 
-**Wizards**: two bundled skills (available from the `/` slash menu; the model also auto-invokes them by trigger words):
-
-- `/plugin-studio-wizard` — needs-first wizard: understand the need (two upfront questions: who is it for × why build) → fulfillment path check (already installed → ecosystem → build). Recommends existing solutions instead of building when possible; only true gaps go to build (form derivation → research → plan & compliance → delivery). Judgment belongs to the wizard, approval to the user.
-- `/five-step-research` — categorized research (platform capability / same ecosystem / industry reference / engineering practice / need validation).
-
-## Standalone use
-
-maker is a pure development-time tool: all six tools and two skills have no hard dependencies and work standalone. Collaboration entries in the checklists (cross-session coordination, lesson-capture guidance) hide automatically when the corresponding companion plugins are not installed. **check/vet work on any plugin directory** (not just maker-made ones): vet adds "hook suggestions" — which official surfaces the plugin uses and which upstream paths to watch (help only, nothing is written); upstream-watch automation runs **daily** by default (cron is yours to tune), and stays silent with zero output and zero commits when nothing changed. See `docs/standalone.md` and `docs/upstream-watch.md`.
-
-## Why open source now
-
-Maker has finished its own decoupling: it was once deeply coupled with some of its author's companion mechanisms; now the boundaries are clear and it can be installed and used standalone. Continued solo development yields little new information — what it needs next is not more ideas from its author, but: **how will strangers actually use it?** Do they need Scaffold, Check, Vet, Research most — or something nobody expected? Only a real ecosystem can answer.
-
-So this open-sourcing is not "Maker is finished." It is: **the internal experiment is over; the external experiment begins.**
-
-## Known gaps and roadmap
-
-- Most mature today: the plugin form (generate + validate + wizards); workflow / script / skill / preset forms are derived by the wizard from the need — no form menus.
-- The wizard ships as a skill: conclusions are presented as text with a yes/no confirmation gate at each step (`ask_user_question` interactive card, verified working) — no extra UI needed. A click-through interactive form-card wizard is on the roadmap, not in the current version.
-- **20 migration fact cards for 0.1.2 have been absorbed** (data file `facts/migrations.mjs`, each fact carries its evidence source; apiProxy and the dependency-pin facts are self-verified, the rest are community-verified pending our own migration). **maker itself is 0.1.2-ready** (peer widened to a `^` range, dsh-client-runtime references removed from templates and examples, self-check clean). Future version facts are new data blocks, no code changes.
-
-## Layout
-
-- `lib/` — tools (scaffold + check + vet/adopt + checklist + impact)
-- `docs/` — knowledge base (standalone use, compliance checklist, UX principles, upstream watch, bug fix archive)
-- `skills/` — the wizard skill + the research skill
-
-## Status
-
-See GitHub tags for the current release (first public release 0.6.0; ongoing releases since 2026-08-30; installed version in package.json)
-
-## Install
-
+```text
+plugin_maker_scaffold
 ```
-pnpm pack && dsh plugin --profile web add file:<path-to-this-dir>/dsh-plugin-maker-<version>.tgz
+
+Provide a plugin name and a short description to generate a minimal DSH-compatible skeleton.
+
+### Check a plugin
+
+```text
+plugin_maker_check
 ```
+
+Checks:
+
+* plugin contract;
+* bundle / exports;
+* registration;
+* release requirements;
+* known migration facts;
+* compatibility baseline.
+
+### Vet an existing plugin
+
+```text
+plugin_maker_vet
+```
+
+Inspects an existing plugin and reports:
+
+* current contract status;
+* potential risk points;
+* relevant DSH surfaces;
+* suggested attachment points;
+* areas that may need review.
+
+### Apply safe changes
+
+```text
+plugin_maker_adopt
+```
+
+Applies only changes that are already known to be safe, deterministic, and verifiable.
+
+### Analyze change impact
+
+```text
+plugin_maker_impact
+```
+
+Before deleting a document, renaming something, changing an interface, or modifying semantics, scan references first to reduce accidental omissions.
+
+### Run the development checklist
+
+```text
+plugin_maker_checklist
+```
+
+Turns already-confirmed development actions into a repeatable checklist so they do not have to be remembered from scratch every time.
+
+---
+
+## An Important Boundary
+
+Maker is **not an automatic plugin generator**.
+
+It does not try to do:
+
+```text
+Requirement
+→ automatically decide everything
+→ automatically design the architecture
+→ automatically write the entire plugin
+```
+
+Instead:
+
+```text
+Requirement
+↓
+Decide whether it needs to exist
+↓
+Check existing capabilities
+↓
+Reduce the problem to what is actually missing
+↓
+Automate deterministic engineering work
+↓
+Leave open-ended decisions to the developer
+```
+
+Maker is therefore not primarily about:
+
+> **Giving an agent more decisions to make.**
+
+It is about:
+
+> **Reducing the repeated engineering cost around decisions that have already been made.**
+
+---
+
+## Standalone Use
+
+Maker can run independently.
+
+All six tools and both Skills work without requiring other collaboration plugins.
+
+`check` and `vet` work with arbitrary plugin directories, not only plugins generated by Maker.
+
+Collaboration-related actions are automatically hidden when the corresponding collaboration capability is not installed.
+
+Upstream watching runs daily by default; when nothing changes, it produces no additional output.
+
+See:
+
+* [`docs/standalone.md`](./docs/standalone.md)
+* [`docs/upstream-watch.md`](./docs/upstream-watch.md)
+
+for more details.
+
+---
+
+## Why Open Source Now
+
+Maker originally had deeper coupling with several internal collaboration mechanisms.
+
+After continued separation, its boundaries are now clear enough for independent use as a DSH development tool.
+
+Keeping it entirely inside one environment would also make it harder to learn what should happen next.
+
+The next important question is:
+
+> **How will unfamiliar developers actually use it?**
+
+Will they need:
+
+* Scaffold?
+* Check?
+* Vet?
+* Research?
+* Impact?
+* Or something we have not thought of yet?
+
+Only the real plugin ecosystem can answer that.
+
+So:
+
+> **This release does not mean Maker is finished. It means the internal experimentation phase is ending and external use is beginning.**
+
+---
+
+## Current Status
+
+The current version is defined by the GitHub tags.
+
+The project currently covers:
+
+* plugin scaffolding;
+* plugin contract checks;
+* third-party plugin vet / adopt;
+* impact analysis;
+* development checklists;
+* upstream dependency watching;
+* plugin development guidance;
+* lightweight research workflows.
+
+Known DSH migration facts are continuously added and verified through source inspection, documentation, and real runtime behavior.
+
+---
+
+## Installation
+
+```bash
+pnpm pack
+dsh plugin --profile web add file:<path-to-this-directory>/dsh-plugin-maker-<version>.tgz
+```
+
+---
+
+## Directory
+
+```text
+lib/
+  tool implementations
+
+skills/
+  development wizard
+  research skill
+
+docs/
+  standalone usage
+  engineering conventions
+  upstream watching
+  issues and fix records
+```
+
+---
+
+## One Sentence
+
+> **DSH provides the freedom of plugins; Maker reduces the engineering cost of using that freedom.**
+
+It is not trying to create more plugins.
+
+It is trying to make the plugins that are actually worth creating easier to build, verify, and maintain.
