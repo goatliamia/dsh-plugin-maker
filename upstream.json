@@ -6,31 +6,82 @@
   "upstreams": [
     {
       "repo": "deepseek-ai/deepseek-harness",
-      "pinned": "dsh-v0.1.1-rc.2",
+      "pinned": "dsh-v0.1.2-alpha.2",
       "watch": [
-        { "path": "packages/bundle", "impact": "打包契约(dsh.bundle.patch/cordis.patch.yml) → scaffold+check" },
-        { "path": "packages/client", "impact": "client 自注册契约(__ModuleLoader__/插件装载) → check" },
-        { "path": "packages/host/apiproxy", "impact": "apiProxy 服务契约（0.1.2 已移除）→ check/vet 的 0.1.2 迁移事实卡" },
-        { "path": "packages/settings", "impact": "settings seam/slot 契约 → 向导形态判断（设置卡）" },
-        { "path": "packages/web", "impact": "Web 路由/主题 token/Slot → 向导形态判断（客户端 UI/槽位）" },
-        { "path": "packages/skill", "impact": "skill 装载/引用机制 → plugin-wizard 向导 skill" },
-        { "path": "packages/preset", "impact": "preset 注入层/组合 → 向导形态判断（agent 预设）" },
-        { "path": "packages/tools", "impact": "tools 契约(register/defineTool/pre-execute/post-execute/restrict) → check 校验项与 vet 文案" },
-        { "path": "packages/workflow", "impact": "workflow 工具 → 路线图形态（大规模编排）" },
-        { "path": "packages/schedule", "impact": "定时调度 → 路线图形态（定时任务）" },
-        { "path": "packages/jobs", "impact": "后台任务 → 路线图形态（后台运行）" },
-        { "path": "packages/goal", "impact": "goal 工具 → 路线图形态（长目标）" },
-        { "path": "packages/guard", "impact": "守卫/审批栈 → 路线图形态（硬约束层）" },
-        { "path": "packages/hooks", "impact": "hook 协议 → 路线图形态（挂点回调）" },
-        { "path": "docs", "impact": "官方契约文档(cordis-primer/tool-catalog) → check 校验规则校准源" },
-        { "path": ".agents/notes", "impact": "官方实现日记 → 解读变更的一手材料" }
+        {
+          "path": "packages/bundle",
+          "impact": "打包契约(dsh.bundle.patch/cordis.patch.yml) → scaffold+check"
+        },
+        {
+          "path": "packages/client",
+          "impact": "client 自注册契约(__ModuleLoader__/插件装载) → check"
+        },
+        {
+          "path": "packages/host/apiproxy",
+          "impact": "apiProxy 服务契约（0.1.2 已移除）→ check/vet 的 0.1.2 迁移事实卡"
+        },
+        {
+          "path": "packages/settings",
+          "impact": "settings seam/slot 契约 → 向导形态判断（设置卡）"
+        },
+        {
+          "path": "packages/web",
+          "impact": "Web 路由/主题 token/Slot → 向导形态判断（客户端 UI/槽位）"
+        },
+        {
+          "path": "packages/skill",
+          "impact": "skill 装载/引用机制 → plugin-wizard 向导 skill"
+        },
+        {
+          "path": "packages/preset",
+          "impact": "preset 注入层/组合 → 向导形态判断（agent 预设）"
+        },
+        {
+          "path": "packages/tools",
+          "impact": "tools 契约(register/defineTool/pre-execute/post-execute/restrict) → check 校验项与 vet 文案"
+        },
+        {
+          "path": "packages/workflow",
+          "impact": "workflow 工具 → 路线图形态（大规模编排）"
+        },
+        {
+          "path": "packages/schedule",
+          "impact": "定时调度 → 路线图形态（定时任务）"
+        },
+        {
+          "path": "packages/jobs",
+          "impact": "后台任务 → 路线图形态（后台运行）"
+        },
+        {
+          "path": "packages/goal",
+          "impact": "goal 工具 → 路线图形态（长目标）"
+        },
+        {
+          "path": "packages/guard",
+          "impact": "守卫/审批栈 → 路线图形态（硬约束层）"
+        },
+        {
+          "path": "packages/hooks",
+          "impact": "hook 协议 → 路线图形态（挂点回调）"
+        },
+        {
+          "path": "docs",
+          "impact": "官方契约文档(cordis-primer/tool-catalog) → check 校验规则校准源"
+        },
+        {
+          "path": ".agents/notes",
+          "impact": "官方实现日记 → 解读变更的一手材料"
+        }
       ]
     },
     {
       "repo": "omdsh-dev/DSH-better-sidebar",
-      "pinned": "v0.16.1",
+      "pinned": "v0.18.0-alpha.0",
       "watch": [
-        { "path": "src", "impact": "betterSidebar 服务契约(registerTab) → 向导生态判断（第三方侧边栏挂载先例）" }
+        {
+          "path": "src",
+          "impact": "betterSidebar 服务契约(registerTab) → 向导生态判断（第三方侧边栏挂载先例）"
+        }
       ]
     }
   ]

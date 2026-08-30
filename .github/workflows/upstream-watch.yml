@@ -1,15 +1,19 @@
 name: upstream-watch
 
-# 上游 tag 盯梢：每周一 UTC 02:17 跑一次，也可手动触发。
+# 上游 tag 盯梢：每天 UTC 02:17 跑一次（周更→日更：发现延迟 7 天压到 1 天；没变化=零 issue 零提交），也可手动触发。
 # 逻辑：upstream-watch.mjs --apply → 有挂点命中就开 issue(去重) + 更新 upstream.json 的 pinned → 自动提交。
 on:
   schedule:
-    - cron: '17 2 * * 1'
+    - cron: '17 2 * * *'
   workflow_dispatch: {}
 
 permissions:
   contents: write
   issues: write
+
+concurrency:
+  group: upstream-watch
+  cancel-in-progress: false
 
 jobs:
   watch:

@@ -27,9 +27,10 @@ function token() {
 }
 
 async function gh(path, init) {
-  const headers = { accept: 'application/vnd.github+json', 'user-agent': 'upstream-watch' }
+  // 注意：init.headers 必须与默认 headers 合并，不能整体替换——否则 POST 会丢掉 authorization（2026-08-30 实机 401）。
+  const headers = { accept: 'application/vnd.github+json', 'user-agent': 'upstream-watch', ...(init && init.headers || {}) }
   if (token()) headers.authorization = 'Bearer ' + token()
-  const res = await fetch('https://api.github.com' + path, Object.assign({ headers }, init))
+  const res = await fetch('https://api.github.com' + path, Object.assign({}, init, { headers }))
   const body = await res.json().catch(() => ({}))
   if (!res.ok) throw new Error(`${path} -> HTTP ${res.status} ${JSON.stringify(body).slice(0, 160)}`)
   return body
