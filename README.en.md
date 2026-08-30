@@ -35,7 +35,7 @@ The official docs have actually already joined the methodology together: `docs/c
 Already installed? → In the ecosystem? → Native to DSH? → A more mature pattern in the industry? → Only then: is it worth building?
 ```
 
-The most common disease of open ecosystems is more and more plugins while the actually-needed capabilities stay unclear. So sometimes Maker's most important output is not "here is a new plugin" — it is: **"Don't build it. The foundation already solves it."** A good dev tool must not only tell an Agent *how* to do things, but also let it clearly say *not needed*.
+The most common disease of open ecosystems is more and more plugins while the actually-needed capabilities stay unclear. So sometimes Maker's most important output is not "here is a new plugin" — it is: **"Don't build it. The foundation already solves it."** A good dev tool must not only tell an Agent *how* to do things, but also let it clearly say *not needed*. The test is not just "does it exist", but also **"can it plug into your own engineering loop"** — a wheel that exists but cannot connect to your actual workflow means: reuse the overlapping part, build the minimum for the gap.
 
 **② The model handles what needs judgment; deterministic mechanisms handle what does not deserve to consume model intelligence.**
 
@@ -44,7 +44,7 @@ Fixed directory structures, entry forms, export requirements, bundle configs, ve
 | Mechanism | What it does |
 |---|---|
 | **Scaffold** | Generates a verified skeleton instead of guessing from an empty directory |
-| **Check** | Turns known Harness contracts into static checks |
+| **Check** | Turns known Harness contracts into static checks (plus cross-version migration fact cards — e.g. the apiProxy removal in 0.1.2, flagged with a ⚠️ migration hint) |
 | **Vet** | Examines third-party plugins before wiring them in and trial-erroring |
 | **Adopt** | Auto-applies the small set of safe, deterministic fixes |
 | **Impact** | Scans references before a change, removing "I don't think I affected anything else" guesswork |
@@ -55,7 +55,7 @@ None of this is invented from nothing: scaffolds, static checks, codemods, depen
 ## Usage
 
 1. **Generate**: `plugin_maker_scaffold` — plugin name + one-line description in, a compliant skeleton out.
-2. **Validate**: `plugin_maker_check` — contracts (bundle/self-registration/id=package-name/required), publish compliance, upgrade baseline, ✅/❌ at a glance.
+2. **Validate**: `plugin_maker_check` — contracts (bundle/self-registration/id=package-name/required), publish compliance, upgrade baseline, cross-version migration fact cards (0.1.2 breaking-change flags), ✅/❌/⚠️ at a glance.
 3. **Install**: `pnpm pack` + `dsh plugin --profile web add`.
 
 **Wizards**: two bundled skills (available from the `/` slash menu; the model also auto-invokes them by trigger words):
@@ -77,6 +77,7 @@ So this open-sourcing is not "Maker is finished." It is: **the internal experime
 
 - Most mature today: the plugin form (generate + validate + wizards); workflow / script / skill / preset forms are derived by the wizard from the need — no form menus.
 - The wizard ships as a skill: conclusions are presented as text with a yes/no confirmation gate at each step (`ask_user_question` interactive card, verified working) — no extra UI needed. A click-through interactive form-card wizard is on the roadmap, not in the current version.
+- **Only one 0.1.2 migration fact card has been absorbed so far** (the apiProxy removal); the remaining community-verified 0.1.2 changes (CallId renames, the dsh-client-runtime split, systemPrompt section reordering, …) will be absorbed as we migrate. Before moving to 0.1.2, also cross-check discussion #5120 and the community migration lists.
 
 ## Layout
 
