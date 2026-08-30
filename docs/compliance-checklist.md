@@ -1,6 +1,6 @@
 # 发布前合规检查清单（投影版）
 
-> 真源=机器检查：`plugin_maker_check`（规则见 lib/index.js，逐条证据见 docs/upstream-doc-absorption.md §2）+ release.mjs 安全闸 + 条款表。本文件是人读投影，逐项标注机制；机制更新以真源为准，本文件不新增约束。
+> 真源=机器检查：`plugin_maker_check`（规则见 lib/index.js，逐条证据见 docs/upstream-doc-absorption.md §2）+ 发布脚本安全闸 + 条款表。本文件是人读投影，逐项标注机制；机制更新以真源为准，本文件不新增约束。
 > 来源：2026-08-27 dsh-quick-approve 0.1.0 翻车的教训，现已全部机制化（2026-08-30 审计标注）。
 
 ## 协议（真源：plugin_maker_check 规则 #1-#6）
@@ -16,8 +16,8 @@
 - [ ] cordis.patch.yml: - insert 单行挂载 (id + name 与包名一致)（#2 insert 层）
 - [ ] files 字段含 lib / cordis.patch.yml / README（files 清单检查）
 
-## 流程（真源：release.mjs 安全闸 + 条款表「发版本」）
+## 流程（真源：发布脚本安全闸 + 条款表「发版本」）
 
-- [ ] 每次修复 bump 版本 (file: tarball 文件名含版本, 否则 pnpm 不更新)（release.mjs 自动 bump）
+- [ ] 每次修复 bump 版本 (file: tarball 文件名含版本, 否则 pnpm 不更新)（发布脚本自动 bump）
 - [ ] 装完必须重启 DSH, 且明确告知用户（条款表「发版本」第 5 条）
-- [ ] 打包前 grep 自查: 无 fetch/eval/外发; 依赖仅官方包（release.mjs 安全闸 + #15 密钥自查）
+- [ ] 打包前 grep 自查: 无 fetch/eval/外发; 依赖仅官方包（发布脚本安全闸 + #15 密钥自查）

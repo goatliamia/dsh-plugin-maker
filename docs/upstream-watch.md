@@ -41,4 +41,4 @@ node scripts/upstream-watch.mjs --apply # 开 issue + 更新 pinned（然后 pus
 | deepseek-ai/deepseek-harness | dsh-v0.1.1-rc.2 | 插件面：bundle/client/settings/web；协作面：skill/preset/tools；路线图形态：workflow/schedule/jobs/goal/guard/hooks；契约源：docs/ + .agents/notes |
 | omdsh-dev/DSH-better-sidebar | v0.16.1 | src（betterSidebar 服务契约） |
 
-备注：任务看板已吸收进 project-context-bridge v0.3.0（tasks 真源 + Cockpit 五列 + 官方 apiProxy 派发），第三方 `@linxin666/dsh-client-ui-task-board` 已退役卸载——不再挂其上游 zhu1090093659/dsh-web；`@deepseek-ai/dsh-tools` 出自官方 monorepo，随官方 tag 一并覆盖（其契约文档在官方 docs/tool-catalog）。
+备注：`@deepseek-ai/dsh-tools` 出自官方 monorepo，随官方 tag 一并覆盖（其契约文档在官方 docs/tool-catalog）。任务看板类上游与 maker 的协议使用面无关，不挂。

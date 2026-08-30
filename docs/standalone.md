@@ -10,7 +10,7 @@ maker 是纯开发期机械工具，无运行时硬依赖：单独安装即可�
 | `plugin_maker_check` | 契约/发布合规/升级基线/密钥检查 | 无 |
 | `plugin_maker_vet` | 接盘体检出可照做的改造清单 | 无 |
 | `plugin_maker_adopt` | 接盘安全项自动应用 | 无 |
-| `plugin_maker_checklist` | 任务动作清单（硬约束执行入口） | 无（跨域条目带〔归口〕标注，未装桥/retro 时跳过对应条） |
+| `plugin_maker_checklist` | 任务动作清单（硬约束执行入口） | 无（协作插件条目带〔归口〕标注，未装对应插件时自动跳过） |
 | `plugin_maker_impact` | 引用面扫描 | 无（桥 impactPreview 的本地替代） |
 
 ## skill 面（全可用）
@@ -22,8 +22,8 @@ skill 由 maker 自己的 host 半经原生 `ctx.skills.registerProvider` 注册
 
 ## 可选协作层（不是依赖）
 
-- **project-context-bridge**：收件箱回执（`project_inbox`）、change 信号、Decision、ExternalRef 是跨会话协作协议。未装桥时：开工清单第 1 条跳过；改文件后的变更投递跳过；设计定案落 git 文件（preset/ADR）即可，不补桥 Decision。
-- **dsh-retro**：`retro_learn`、patterns.mjs 模式表、升级闸门是运行期错误域机制。未装 retro 时：踩坑清单的 retro 归口条跳过；坑照样进本仓库 `docs/bugs/` 修复档案（跟仓库走）。
+- **project-context-bridge**（跨会话协作层）：收件箱回执（`project_inbox`）、变更通知、决策记录、外部引用组成跨会话协作协议。未装桥时：开工清单第 1 条跳过；改文件后的变更通知跳过；设计决策落 git 文件（preset/ADR 文档）即可。
+- **dsh-retro**（运行期错误学习）：`retro_learn` 教训沉淀、模式表、升级闸门。未装 retro 时：踩坑清单的 retro 归口条跳过；坑照样进你的插件仓库 `docs/bugs/` 修复档案（四段模板）。
 
 ## 已知缺口
 
