@@ -34,3 +34,10 @@ description: 开发前的技术可行性研究（五步分类调查）。仅当�
 
 - 挂载点必须查运行时契约（cordis_inspect），不凭记忆（反例：required:false 导致启动崩溃——都是实测出来的）
 - waterfall 监听纪律由 `plugin_maker_check` 规则机器拦截；运行期监听教训归 dsh-retro，本 skill 不复制
+
+## 约束形态表（软→硬映射）
+
+| 铁律 | 形态 | 机器出口 |
+|---|---|---|
+| 挂载点查运行时契约不凭记忆 | 软（判断类） | 反例已被机制兜底：required:false → `plugin_maker_check` 规则 #8 |
+| waterfall 监听纪律 | **硬** | `plugin_maker_check` 规则 #9（本 skill 只标归口，不复制软文本） |

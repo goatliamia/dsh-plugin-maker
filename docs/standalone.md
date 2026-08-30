@@ -22,7 +22,7 @@ skill 由 maker 自己的 host 半经原生 `ctx.skills.registerProvider` 注册
 
 ## 可选协作层（不是依赖）
 
-- **project-context-bridge**（跨会话协作层）：收件箱回执（`project_inbox`）、变更通知、决策记录、外部引用组成跨会话协作协议。未装桥时：开工清单第 1 条跳过；改文件后的变更通知跳过；设计决策落 git 文件（preset/ADR 文档）即可。
+- **project-context-bridge**（跨会话协作层）：收件箱回执（`project_inbox`）、变更通知、决策记录、外部引用组成跨会话协作协议。未装桥时：开工清单第 1 条跳过；改文件后的变更通知跳过；设计决策落 git 文件（docs 文档或 commit 信息）即可。
 - **dsh-retro**（运行期错误学习）：`retro_learn` 教训沉淀、模式表、升级闸门。未装 retro 时：踩坑清单的 retro 归口条跳过；坑照样进你的插件仓库 `docs/bugs/` 修复档案（四段模板）。
 
 ## 已知缺口
