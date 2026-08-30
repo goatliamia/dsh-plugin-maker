@@ -99,3 +99,5 @@
 | 事实 | 证据 | 落点 | 上游挂点 |
 |---|---|---|---|
 | apiProxy 服务在 0.1.2 整体移除（packages/host/apiproxy）；inject apiProxy 的插件入口永远 pending（waiting for service: apiProxy），插件树不激活、宿主启动失败 | oh-my-dsh 验证报告（Docker 全链路：0.1.1 正控正常 / 0.1.2 复现爆炸 / 按 ALPHA1-01 卡片迁移后救活）+ #5120 痛点#4 + 本仓库生态桥插件 plugin.mjs L53 真实命中 | check ⚠️ 警告（inject 含 apiProxy 时提示迁移路线：宿主平面直连领域服务，客户端平面走 ctx.remote.*）+ vet 改法条目 | packages/host/apiproxy |
+
+> 2026-08-30 形态升级：0.1.2 迁移事实全部落入数据文件 `facts/migrations.mjs`（20 条，来源逐条标注：oh-my-dsh 验证报告 / william hops（MIT）/ zhu dsh-web 20 包真实迁移；verified=true 仅 apiProxy 一条，其余社区验证待自测）。check/vet 读取数据文件扫描，新版本事实=新增数据段不改代码；回归测试 test/upgrade-facts.test.mjs（pattern 可编译 + 命中形态 + maker 自检文案隔离）。
