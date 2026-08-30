@@ -10,6 +10,7 @@
       "watch": [
         { "path": "packages/bundle", "impact": "打包契约(dsh.bundle.patch/cordis.patch.yml) → scaffold+check" },
         { "path": "packages/client", "impact": "client 自注册契约(__ModuleLoader__/插件装载) → check" },
+        { "path": "packages/host/apiproxy", "impact": "apiProxy 服务契约（0.1.2 已移除）→ check/vet 的 0.1.2 迁移事实卡" },
         { "path": "packages/settings", "impact": "settings seam/slot 契约 → 向导形态判断（设置卡）" },
         { "path": "packages/web", "impact": "Web 路由/主题 token/Slot → 向导形态判断（客户端 UI/槽位）" },
         { "path": "packages/skill", "impact": "skill 装载/引用机制 → plugin-wizard 向导 skill" },

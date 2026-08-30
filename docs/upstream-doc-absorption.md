@@ -91,3 +91,11 @@
 - **references**：新增 `skills/plugin-wizard/references/official-docs.md`（官方文档地图+用法规则）；ecosystem-scan.md 满足途径第①层、SKILL.md 铁律、scaffold.md 补官方教程入口。
 - **README**：定位措辞改口——「官方给教程，maker 是教程的机器化」（中英双语）。
 - **release.mjs**：不改（桥 Decision dec_mteow551_eba5c6fd8c8b：不为未实锤嫌疑改发布流程，预防动作=发版后重启提醒）。
+
+## 7. 社区验证事实卡（0.1.2 升级，2026-08-30 吸收）
+
+官方 #5120「升级 skill」征集期间由社区验证的迁移事实，按六条判据机制化（①明确事实依据 ②能实测 ③挂点配对 ④代价高 ⑤修改代价低 ⑥可机器验证）：
+
+| 事实 | 证据 | 落点 | 上游挂点 |
+|---|---|---|---|
+| apiProxy 服务在 0.1.2 整体移除（packages/host/apiproxy）；inject apiProxy 的插件入口永远 pending（waiting for service: apiProxy），插件树不激活、宿主启动失败 | oh-my-dsh 验证报告（Docker 全链路：0.1.1 正控正常 / 0.1.2 复现爆炸 / 按 ALPHA1-01 卡片迁移后救活）+ #5120 痛点#4 + 本仓库生态桥插件 plugin.mjs L53 真实命中 | check ⚠️ 警告（inject 含 apiProxy 时提示迁移路线：宿主平面直连领域服务，客户端平面走 ctx.remote.*）+ vet 改法条目 | packages/host/apiproxy |

@@ -32,13 +32,13 @@ node scripts/upstream-watch.mjs --apply # 开 issue + 更新 pinned（然后 pus
 
 为什么没直接用现成工具：上游（deepseek-harness）**不发 GitHub Releases、只有 tag**，且我们挂的是 monorepo 内具体路径而非 npm 依赖——Dependabot/Renovate 都覆盖不到"tag + 路径"这个组合，80 行脚本比引入黑盒更可控。
 
-## 当前挂点（v1.3）
+## 当前挂点（v1.4）
 
 原则：**哪里用到协议就挂哪里**——只挂 maker 自己使用的协议点：现行形态（插件/skill/preset 注入/settings/UI 槽位）与路线图形态（workflow/定时/后台任务/goal/hook），全部挂官方。
 
 | 上游 | pin | 关心（按面） |
 |---|---|---|
-| deepseek-ai/deepseek-harness | dsh-v0.1.1-rc.2 | 插件面：bundle/client/settings/web；协作面：skill/preset/tools；路线图形态：workflow/schedule/jobs/goal/guard/hooks；契约源：docs/ + .agents/notes |
+| deepseek-ai/deepseek-harness | dsh-v0.1.1-rc.2 | 插件面：bundle/client/settings/web；宿主服务面：host/apiproxy（0.1.2 移除事实卡）；协作面：skill/preset/tools；路线图形态：workflow/schedule/jobs/goal/guard/hooks；契约源：docs/ + .agents/notes |
 | omdsh-dev/DSH-better-sidebar | v0.16.1 | src（betterSidebar 服务契约） |
 
 备注：`@deepseek-ai/dsh-tools` 出自官方 monorepo，随官方 tag 一并覆盖（其契约文档在官方 docs/tool-catalog）。任务看板类上游与 maker 的协议使用面无关，不挂。
