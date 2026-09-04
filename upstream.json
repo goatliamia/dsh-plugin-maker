@@ -76,7 +76,7 @@
     },
     {
       "repo": "omdsh-dev/DSH-better-sidebar",
-      "pinned": "v0.18.0-alpha.0",
+      "pinned": "v0.18.0",
       "watch": [
         {
           "path": "src",
