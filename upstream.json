@@ -17,10 +17,6 @@
           "impact": "client 自注册契约(__ModuleLoader__/插件装载) → check"
         },
         {
-          "path": "packages/host/apiproxy",
-          "impact": "apiProxy 服务契约（0.1.2 已移除）→ check/vet 的 0.1.2 迁移事实卡"
-        },
-        {
           "path": "packages/settings",
           "impact": "settings seam/slot 契约 → 向导形态判断（设置卡）"
         },
@@ -37,7 +33,7 @@
           "impact": "preset 注入层/组合 → 向导形态判断（agent 预设）"
         },
         {
-          "path": "packages/tools",
+          "path": "packages/core/tools",
           "impact": "tools 契约(register/defineTool/pre-execute/post-execute/restrict) → check 校验项与 vet 文案"
         },
         {
@@ -65,6 +61,10 @@
           "impact": "hook 协议 → 路线图形态（挂点回调）"
         },
         {
+          "path": "packages/session",
+          "impact": "session 持久化/格式契约（0.1.3-alpha.1：SessionHandle + 格式 v2）→ check 校验项"
+        },
+        {
           "path": "docs",
           "impact": "官方契约文档(cordis-primer/tool-catalog) → check 校验规则校准源"
         },
@@ -80,7 +80,7 @@
       "watch": [
         {
           "path": "src",
-          "impact": "betterSidebar 服务契约(registerTab) → 向导生态判断（第三方侧边栏挂载先例）"
+          "impact": "betterSidebar 服务契约(registerTab) → 向导生态判断（第三方侧边栏装载先例）"
         }
       ]
     }

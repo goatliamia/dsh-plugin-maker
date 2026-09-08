@@ -39,11 +39,18 @@ check(!hit(2, indexText), 'maker 自身不被 deepFreeze 导入事实命中')
 check(!hit(3, indexText), 'maker 自身不被 JsonValue 导入事实命中')
 
 // 挂靠建议（帮助形态）：包引用与 inject 服务名 → 上游挂点
-const h1 = hookSuggestions("import { defineTool } from '@deepseek-ai/dsh-tools'\nexport const inject = ['apiProxy']")
+const h1 = hookSuggestions("import { defineTool } from '@deepseek-ai/dsh-tools'\nexport const inject = ['sessions']")
 check(h1.some(h => h.path === 'packages/core/tools'), '挂靠建议：dsh-tools 引用 → packages/core/tools')
-check(h1.some(h => h.path === 'packages/host/apiproxy'), '挂靠建议：inject apiProxy → packages/host/apiproxy')
+check(h1.some(h => h.path === 'packages/core/session'), '挂靠建议：inject sessions → packages/core/session')
+// 0.1.2 起 apiProxy 已移除：不再给已消失的上游路径（建议指向不存在的路径 = 配了也永远盯不到）
+check(!hookSuggestions("export const inject = ['apiProxy']").some(h => h.path.includes('apiproxy')), '挂靠建议：apiProxy 不再映射到已移除的 packages/host/apiproxy')
 check(hookSuggestions('普通文本无任何官方面').length === 0, '挂靠建议：无官方面使用 → 空')
 check(h1.length === new Set(h1.map(h => h.path)).size, '挂靠建议：同挂点去重')
 
-console.log('RESULT: ' + pass + '/18')
-if (pass !== 18) process.exitCode = 1
+// 0.1.2→0.1.3 事实段必须存在且每条都能编译（版本适配的回归护栏）
+const hop13 = MIGRATION_FACTS.find(h => h.to === '0.1.3-alpha.2')
+check(!!hop13 && hop13.facts.length >= 5, '含 0.1.2→0.1.3-alpha.2 事实段')
+check(!!hop13 && hop13.facts.every(f => { try { new RegExp(f.pattern); return true } catch { return false } }), '0.1.3 事实段 pattern 全部可编译')
+
+console.log('RESULT: ' + pass + '/21')
+if (pass !== 21) process.exitCode = 1

@@ -1,5 +1,5 @@
 // 生成即验证回归测试：scaffold 模板产物必须 check 全绿——模板回归当场暴露，不靠用户手动发现
-import { checkPlugin, scaffoldFiles } from '../lib/check-core.mjs'
+import { checkPlugin, dshVersion, scaffoldFiles } from '../lib/check-core.mjs'
 import { mkdir, writeFile, rm } from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
@@ -18,7 +18,10 @@ check(out.includes('契约校验'), '含契约校验节')
 check(out.includes('发布合规'), '含发布合规节')
 check(out.includes('升级基线'), '含升级基线节')
 check(out.includes('跨版本迁移事实卡'), '含迁移事实卡节')
-check(out.includes('0.1.1-rc.2'), '报告当前 DSH 版本')
+// 升级基线报的是运行时真实解析到的框架线（0.1.3 起：dsh-tools 解析版本），不是 scaffold 参数。
+// 这里断言报告版本与 dshVersion() 一致——版本升级不再让这条测试误红。
+const resolved = await dshVersion()
+check(out.includes(resolved), '报告当前 DSH 版本（与 dshVersion() 一致: ' + resolved + '）')
 
 await rm(dir, { recursive: true, force: true })
 console.log('RESULT: ' + pass + '/6')

@@ -31,15 +31,15 @@ node scripts/upstream-watch.mjs --apply # 开 issue + 更新 pinned（然后 pus
 - [llm-d/llm-d 的 upstream-monitor workflow](https://github.com/llm-d/llm-d/blob/0ffa2847/.github/workflows/upstream-monitor.md)：同类上游监控。
 - Vue 翻译生态 [Ryu-Cho](https://github.com/vuejs-translations/ryu-cho)：追踪上游文档变更批量建 issue。
 
-为什么没直接用现成工具：上游（deepseek-harness）**不发 GitHub Releases、只有 tag**，且我们挂的是 monorepo 内具体路径而非 npm 依赖——Dependabot/Renovate 都覆盖不到"tag + 路径"这个组合，80 行脚本比引入黑盒更可控。
+为什么没直接用现成工具：我们挂的是 monorepo 内**具体路径**而非 npm 依赖，Dependabot/Renovate 覆盖不到"tag + 路径"这个组合；官方同时发 tag 与 GitHub Release（release notes 是变更线索），但 release notes 是自然语言、且只在发版时出现——按 tag 拉全文件树做集合差才能精确落到"我挂的那条路径变了没有"，80 行脚本比引入黑盒更可控。
 
-## 当前挂点（v1.4）
+## 当前挂点（v1.5）
 
-原则：**哪里用到协议就挂哪里**——只挂 maker 自己使用的协议点：现行形态（插件/skill/preset 注入/settings/UI 槽位）与路线图形态（workflow/定时/后台任务/goal/hook），全部挂官方。
+原则：**哪里用到协议就挂哪里**——只挂 maker 自己使用的协议点：现行形态（插件/skill/preset 注入/settings/UI 槽位/session 持久化与格式）与路线图形态（workflow/定时/后台任务/goal/hook），全部挂官方。
 
 | 上游 | pin | 关心（按面） |
 |---|---|---|
-| deepseek-ai/deepseek-harness | dsh-v0.1.1-rc.2 | 插件面：bundle/client/settings/web；宿主服务面：host/apiproxy（0.1.2 移除事实卡）；协作面：skill/preset/tools；路线图形态：workflow/schedule/jobs/goal/guard/hooks；契约源：docs/ + .agents/notes |
+| deepseek-ai/deepseek-harness | dsh-v0.1.3-alpha.2 | 插件面：bundle/client/settings/web；宿主服务面：host/webserver；协作面：skill/preset/tools；会话面：session（0.1.3-alpha.1 起 SessionHandle + 格式 v2）；路线图形态：workflow/schedule/jobs/goal/guard/hooks；契约源：docs/ + .agents/notes |
 | omdsh-dev/DSH-better-sidebar | v0.16.1 | src（betterSidebar 服务契约） |
 
-备注：`@deepseek-ai/dsh-tools` 出自官方 monorepo，随官方 tag 一并覆盖（其契约文档在官方 docs/tool-catalog）。任务看板类上游与 maker 的协议使用面无关，不挂。
+备注：`@deepseek-ai/dsh-tools` 出自官方 monorepo，随官方 tag 一并覆盖（其契约文档在官方 docs/tool-catalog）。任务看板类上游与 maker 的协议使用面无关，不挂。`packages/host/apiproxy` 在 0.1.2 已移除，挂点里不再保留（迁移事实卡负责提示该服务不存在）。

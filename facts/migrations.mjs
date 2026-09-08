@@ -132,4 +132,58 @@ export const MIGRATION_FACTS = [
       },
     ],
   },
+  {
+    from: '0.1.2',
+    to: '0.1.3-alpha.2',
+    facts: [
+      {
+        pattern: 'sessionPersistence\\.(create|open)\\(|SessionPersistence\\b',
+        message: 'Session 持久化 API 改为生命周期持有的 SessionHandle：create()/open() 都返回 Promise<SessionHandle>，读写走 handle，不再直接拿裸 session 文件句柄；同一 session 同时至多一个进程持有（session 锁）——需要显式 close/flush',
+        source: '官方 release dsh-v0.1.3-alpha.1「破坏性变更」+ 本机 0.1.3-alpha.2 dsh-session-persistence 类型实测（create/open → Promise<SessionHandle>）',
+        verified: true,
+      },
+      {
+        pattern: 'session\\.events\\b|\\bSession\\.events\\b',
+        message: 'Session.events 已被按需读取 API 取代：seq / eventAt(seq) / snapshotEvents(from?, to?)；直接读 events 数组的代码在 0.1.3 上取不到数据',
+        source: '官方 release dsh-v0.1.2-alpha.4 + 本机 0.1.3-alpha.2 dsh-session 类型实测（eventAt/snapshotEvents 存在）',
+        verified: true,
+      },
+      {
+        pattern: 'ctx\\.agent\\b',
+        message: '插件 Agent API 调整：移除 ctx.agent——调用方必须显式传递 Agent（0.1.3-alpha.1 起）',
+        source: '官方 release dsh-v0.1.3-alpha.1「插件 Agent API 调整」+ 本机 0.1.3-alpha.2 服务目录无 agent 项',
+        verified: true,
+      },
+      {
+        pattern: "['\"]report['\"]|tool-subagent-report|subagents?\\.report\\(",
+        message: '子代理 report 工具已移除（0.1.2-alpha.4 起）：父/可继续子代之间改用 send_message 双向传递（steer 语义）',
+        source: '官方 release dsh-v0.1.2-alpha.4 + 本机 0.1.3-alpha.2 无 dsh-tool-subagent-report 包',
+        verified: true,
+      },
+      {
+        pattern: 'SESSION_FORMAT_VERSION|sessionFormatVersion|session-format',
+        message: 'Session 格式升级到 v2（0.1.3-alpha.1）：恢复旧会话会生成新版日志并保留原文件，升级后不支持降级读取；自定义日志读取器必须适配（迁移链 dsh-session-format-v1-to-v2）',
+        source: '官方 release dsh-v0.1.3-alpha.1 + 本机 0.1.3-alpha.2 SESSION_FORMAT_VERSION=2 实测',
+        verified: true,
+      },
+      {
+        pattern: 'dsh-session-persistence-sqlite|sqlitePersistence',
+        message: 'SQLite Session 持久化后端已移除（0.1.2-alpha.3）：已有内容不删除，用旧版本导出；持久化只用 jsonl 后端',
+        source: '官方 release dsh-v0.1.2-alpha.3 + 本机 0.1.3-alpha.2 无该包（注意 dsh-session-query-sqlite 是查询侧，仍在）',
+        verified: true,
+      },
+      {
+        pattern: '\\bInbox\\b.*(new |extends )|new Inbox\\(',
+        message: 'Inbox 改为类型接口，不再导出可构造的运行时类（0.1.3-alpha.1）：插件通过 agent.inbox 读写待处理消息，hasPending/claim 不再属于公共接口',
+        source: '官方 release dsh-v0.1.3-alpha.1「Inbox API 调整」',
+        verified: false,
+      },
+      {
+        pattern: 'PERSONA_ORDER|PERSONA_TEXT\\b',
+        message: '自定义 persona 配置拆分为前缀/后缀（0.1.3-alpha.2）：用 PERSONA_PREFIX_SECTION / PERSONA_SUFFIX_SECTION 注册，旧常量与旧配置需适配',
+        source: '官方 release dsh-v0.1.3-alpha.2 + 本机 0.1.3-alpha.2 dsh-system-prompt/dsh-persona 导出实测（PERSONA_PREFIX_SECTION / PERSONA_SUFFIX_SECTION 存在，PERSONA_ORDER 不存在）',
+        verified: true,
+      },
+    ],
+  },
 ]
