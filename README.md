@@ -48,6 +48,7 @@ DeepSeek Harness 的理念是 "Everything is a Plugin"：能力都可以被组�
 | **Vet** | 第三方插件先体检，而不是接进去再试错 |
 | **Adopt** | 少量安全、确定性的修改直接自动应用 |
 | **Impact** | 变更前扫引用关系，减少「我好像没影响别处」的猜测 |
+| **Surface** | 工具面诊断：这个插件该不该把原语收窄成语义操作（判据是**稳定组合**，不是数量；结论可以是不建议） |
 | **Upstream** | DSH 还在快速变化——盯住官方挂点，变了自动报警，不假设今天能跑明天就能跑 |
 
 这些都不是凭空发明：scaffold、static check、codemod、dependency update、impact analysis 在传统软件工程里早有成熟先例。真正有意思的是，它们现在被重新放进一个**可以自主行动的 Agent Harness** 里。传统工程默认「人知道该怎么做，工具帮他做得更快」；Agent 工程多了一个问题：**Agent 本身也需要被约束在正确的工程路径上。** Maker 试图解决的正是后者：不是让模型更聪明，而是减少它因环境不可靠而失去原有能力的机会。
@@ -56,7 +57,8 @@ DeepSeek Harness 的理念是 "Everything is a Plugin"：能力都可以被组�
 
 1. **生成**：`plugin_maker_scaffold` —— 插件名 + 一句话描述，生成合规骨架。
 2. **校验**：`plugin_maker_check` —— 契约（bundle/自注册/id=包名/required）、发布合规、升级基线、跨版本迁移事实卡（0.1.2 破坏性变更 + 0.1.3 SessionHandle/格式 v2 ⚠️；升级前跑一遍，⚠️ 项即待迁移点），一目了然。
-3. **装**：`pnpm pack` + `dsh plugin --profile web add`。
+3. **诊断工具面**：`plugin_maker_surface` —— 这个插件注册了多少模型可见工具、哪些像实现原语、值不值得收窄成语义操作。判据是**有没有稳定组合**；结论可以（而且经常应该）是「不建议做」。设计依据与实测证据见 `docs/why-facade-cannot-hide-tools.md` 与 `docs/surface-evidence.md`。
+4. **装**：`pnpm pack` + `dsh plugin --profile web add`；上生产前可用 `scripts/verify-plugin.ps1` 在一次性 profile 里隔离验证。
 
 **向导**：两个自带 skill（`/` 斜杠菜单可触发，模型也会按触发词自动调用）：
 
@@ -65,7 +67,7 @@ DeepSeek Harness 的理念是 "Everything is a Plugin"：能力都可以被组�
 
 ## 单独使用
 
-maker 是纯开发期工具：六个工具 + 两个 skill 全部无硬依赖、独立可用；动作清单里的协作条目（跨会话协同、教训沉淀指引）在未安装对应协作插件时自动隐藏。**check/vet 对任何插件目录工作**（不只 maker 生成的）：vet 会附「挂靠建议」——插件用了哪些官方协议面、建议挂哪些上游路径（帮助形态，不代写）；上游盯梢自动化默认**日更**（cron 频率可自改），没变化就零输出零提交。详见 `docs/standalone.md` 与 `docs/upstream-watch.md`。
+maker 是纯开发期工具：七个工具 + 两个 skill 全部无硬依赖、独立可用；动作清单里的协作条目（跨会话协同、教训沉淀指引）在未安装对应协作插件时自动隐藏。**check/vet/surface 对任何插件目录工作**（不只 maker 生成的）：vet 会附「挂靠建议」——插件用了哪些官方协议面、建议挂哪些上游路径（帮助形态，不代写）；surface 会出工具面诊断与（可选）起步声明。上游盯梢自动化默认**日更**（cron 频率可自改），没变化就零输出零提交。详见 `docs/standalone.md` 与 `docs/upstream-watch.md`。
 
 ## 为什么现在开源
 

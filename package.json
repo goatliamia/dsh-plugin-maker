@@ -1,6 +1,6 @@
 {
   "name": "dsh-plugin-maker",
-  "version": "0.6.21",
+  "version": "0.6.22",
   "description": "DSH plugin workshop: wizard + scaffold + check + vet/adopt + checklist + impact for DeepSeek Harness plugin development.",
   "type": "module",
   "main": "lib/index.js",
@@ -15,12 +15,8 @@
     "cordis.patch.yml",
     "README.md",
     "README.en.md",
-    "docs/standalone.md",
-    "docs/compliance-checklist.md",
-    "docs/ux-principles.md",
-    "docs/upstream-watch.md",
-    "docs/upstream-doc-absorption.md",
-    "docs/bugs",
+    "docs",
+    "scripts",
     "skills"
   ],
   "license": "MIT",

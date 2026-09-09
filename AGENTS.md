@@ -4,7 +4,7 @@ Repository guide for AI agents (DSH / Copilot / Cursor / …) working on this co
 
 ## What this repo is
 
-A DeepSeek Harness plugin workshop: six tools (scaffold / check / vet / adopt / checklist / impact) and two bundled skills (plugin-studio-wizard, five-step-research). Positioning and principles live in README and [docs/manifesto.md](./docs/manifesto.md).
+A DeepSeek Harness plugin workshop: seven tools (scaffold / check / vet / adopt / checklist / impact / surface) and two bundled skills (plugin-studio-wizard, five-step-research). Positioning and principles live in README and [docs/manifesto.md](./docs/manifesto.md).
 
 ## Before changing code
 
