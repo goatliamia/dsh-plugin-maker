@@ -1,5 +1,7 @@
 # Changelog
 
+> 从 0.6.7 起，逐版本变更记录在 [GitHub Releases](https://github.com/goatliamia/dsh-plugin-maker/releases)（每个 tag 附 tgz）——本文件只保留 0.6.6 及更早的冻结历史。
+
 ## 0.6.6 — Reword the wizard roadmap note (2026-08-30)
 
 - README (zh/en) and the standalone guide: the "known gap" note no longer reads like internal implementation notes (self-registration stub / native card reuse). It now states it in user terms: the wizard ships as a skill with card conclusions and yes/no confirmations, no extra UI needed; an interactive form-card wizard is on the roadmap.

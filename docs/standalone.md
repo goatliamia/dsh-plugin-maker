@@ -12,6 +12,7 @@ maker 是纯开发期机械工具，无运行时硬依赖：单独安装即可�
 | `plugin_maker_adopt` | 接盘安全项自动应用 | 无 |
 | `plugin_maker_checklist` | 任务动作清单（硬约束执行入口） | 无（协作插件条目带〔归口〕标注，未装对应插件时自动跳过） |
 | `plugin_maker_impact` | 引用面扫描 | 无（桥 impactPreview 的本地替代） |
+| `plugin_maker_surface` | 工具面诊断（只读）：多少模型可见工具、哪些像原语、值不值得收窄成语义操作 | 无 |
 
 ## skill 面（全可用）
 
