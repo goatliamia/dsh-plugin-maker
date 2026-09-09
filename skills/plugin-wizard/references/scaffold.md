@@ -36,4 +36,3 @@ SKILL.md：YAML frontmatter（name + 第三人称 description）+ 正文 <500 �
 
 ## 脚本/自动化
 - 脚本放项目 scripts/；可注册为任务看板任务（cron）
-- preset：复制 `~/.dsh/.agent-presets/standard` 改（勿改自带）
