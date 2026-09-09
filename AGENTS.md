@@ -15,7 +15,7 @@ A DeepSeek Harness plugin workshop: seven tools (scaffold / check / vet / adopt 
 ## After changing code
 
 - `node --check` on every touched file + full `node --test test/` green.
-- Bug fixes ship in the same commit as their `docs/bugs/` archive entry — four sections only (Problem / Root Cause / Correct Pattern / Regression), final knowledge, no trial-and-error history. GitHub Issue is the process source of truth; docs/bugs holds only "next person will hit this too" cases.
+- Bug fixes ship with a regression test in the same commit — that is the machine-verifiable half. A `docs/bugs/` entry is optional and reserved for a pitfall that recurs and is anchored by a test (four sections only: Problem / Root Cause / Correct Pattern / Regression; final knowledge, no trial-and-error history). We do not accumulate lesson/pitfall records as a product feature: stale records mislead after version bumps. GitHub Issue remains the process source of truth.
 
 ## Releases
 

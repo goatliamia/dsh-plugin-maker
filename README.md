@@ -67,7 +67,7 @@ DeepSeek Harness 的理念是 "Everything is a Plugin"：能力都可以被组�
 
 ## 单独使用
 
-maker 是纯开发期工具：七个工具 + 两个 skill 全部无硬依赖、独立可用；动作清单里的协作条目（跨会话协同、教训沉淀指引）在未安装对应协作插件时自动隐藏。**check/vet/surface 对任何插件目录工作**（不只 maker 生成的）：vet 会附「挂靠建议」——插件用了哪些官方协议面、建议挂哪些上游路径（帮助形态，不代写）；surface 会出工具面诊断与（可选）起步声明。上游盯梢自动化默认**日更**（cron 频率可自改），没变化就零输出零提交。详见 `docs/standalone.md` 与 `docs/upstream-watch.md`。
+maker 是纯开发期工具：七个工具 + 两个 skill 全部无硬依赖、独立可用；动作清单里的协作条目（跨会话协同）在未安装对应协作插件时自动隐藏。**check/vet/surface 对任何插件目录工作**（不只 maker 生成的）：vet 会附「挂靠建议」——插件用了哪些官方协议面、建议挂哪些上游路径（帮助形态，不代写）；surface 会出工具面诊断与（可选）起步声明。上游盯梢自动化默认**日更**（cron 频率可自改），没变化就零输出零提交。详见 `docs/standalone.md` 与 `docs/upstream-watch.md`。
 
 ## 为什么现在开源
 
@@ -84,8 +84,8 @@ Maker 已经完成了自己的一次解耦：它最初和作者的一些配套�
 
 ## 目录
 
-- `lib/` —— 工具（scaffold + check + vet/adopt + checklist + impact）
-- `docs/` —— 知识库（独立使用、合规清单、UX 原则、上游盯梢、bug 修复档案）
+- `lib/` —— 工具（scaffold + check + vet/adopt + checklist + impact + surface）
+- `docs/` —— 知识库（独立使用、合规清单、UX 原则、上游盯梢、工具面证据；`bugs/` 为历史档案，不再要求新增）
 - `skills/` —— 向导 skill + 调研 skill
 
 ## 状态
