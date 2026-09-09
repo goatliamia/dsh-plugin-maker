@@ -305,6 +305,12 @@ It is about:
 
 > **Reducing the repeated engineering cost around decisions that have already been made.**
 
+Three more boundaries, for the same reason:
+
+* **No runtime narrowing.** A facade cannot hide tools that are already exposed — DSH resolves presentation, lookup, and dispatch through one visibility resolver — so `surface` diagnoses and never rewrites. Evidence: `docs/why-facade-cannot-hide-tools.md`, `docs/surface-evidence.md`.
+* **No lesson or pitfall archive.** Runtime errors and experience belong to dsh-retro; such records go stale and mislead after version bumps. Maker's only bug requirement is machine-verifiable: a fix ships with a regression test.
+* **No preset / cordis composition, no dynamic Cordis plugins.** Those belong to the runtime composition and session layers. Maker stays on persistent plugin packages (publishable, verifiable, upstream-aware) plus skills, scripts, and workflows.
+
 ---
 
 ## Standalone Use

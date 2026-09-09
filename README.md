@@ -41,33 +41,43 @@ DeepSeek Harness 的理念是 "Everything is a Plugin"：能力都可以被组�
 
 固定的目录结构、入口形式、导出要求、bundle 配置、已验证的 API 契约——这些如果每次都让模型自由生成，就等于每次都重新犯错的机会。于是：
 
-| 机制 | 干什么 |
+| 工具 | 干什么 |
 |---|---|
-| **Scaffold** | 生成已验证的骨架，而不是从空目录开始猜 |
-| **Check** | 把已知的 Harness 契约变成静态检查（含跨版本迁移事实卡：如 0.1.2 的 apiProxy 移除、0.1.3 的 SessionHandle/格式 v2，⚠️ 提示迁移路线） |
-| **Vet** | 第三方插件先体检，而不是接进去再试错 |
-| **Adopt** | 少量安全、确定性的修改直接自动应用 |
-| **Impact** | 变更前扫引用关系，减少「我好像没影响别处」的猜测 |
-| **Surface** | 工具面诊断：这个插件该不该把原语收窄成语义操作（判据是**稳定组合**，不是数量；结论可以是不建议） |
-| **Upstream** | DSH 还在快速变化——盯住官方挂点，变了自动报警，不假设今天能跑明天就能跑 |
+| `scaffold` | 生成已验证的骨架，而不是从空目录开始猜 |
+| `check` | 把已知的 Harness 契约变成静态检查（bundle / 自注册 / id=包名 / required、发布合规、跨版本迁移事实卡 ⚠️） |
+| `vet` | 第三方插件先体检，而不是接进去再试错；附「挂靠建议」 |
+| `adopt` | 少量安全、确定性的修改直接自动应用 |
+| `impact` | 变更前扫引用关系，减少「我好像没影响别处」的猜测 |
+| `checklist` | 把任务类型的必须动作变成可执行清单（协作类条目在没装对应插件时自动隐藏） |
+| `surface` | 工具面诊断：这个插件该不该把原语收窄成语义操作（判据是**稳定组合**，不是数量；结论可以是不建议） |
+
+另有一条**自动化**（不是工具）：**上游盯梢**——钉住官方挂点，变了自动报警，不假设今天能跑明天就能跑；默认日更，没变化就零输出零提交。
 
 这些都不是凭空发明：scaffold、static check、codemod、dependency update、impact analysis 在传统软件工程里早有成熟先例。真正有意思的是，它们现在被重新放进一个**可以自主行动的 Agent Harness** 里。传统工程默认「人知道该怎么做，工具帮他做得更快」；Agent 工程多了一个问题：**Agent 本身也需要被约束在正确的工程路径上。** Maker 试图解决的正是后者：不是让模型更聪明，而是减少它因环境不可靠而失去原有能力的机会。
 
 ## 怎么用
 
 1. **生成**：`plugin_maker_scaffold` —— 插件名 + 一句话描述，生成合规骨架。
-2. **校验**：`plugin_maker_check` —— 契约（bundle/自注册/id=包名/required）、发布合规、升级基线、跨版本迁移事实卡（0.1.2 破坏性变更 + 0.1.3 SessionHandle/格式 v2 ⚠️；升级前跑一遍，⚠️ 项即待迁移点），一目了然。
-3. **诊断工具面**：`plugin_maker_surface` —— 这个插件注册了多少模型可见工具、哪些像实现原语、值不值得收窄成语义操作。判据是**有没有稳定组合**；结论可以（而且经常应该）是「不建议做」。设计依据与实测证据见 `docs/why-facade-cannot-hide-tools.md` 与 `docs/surface-evidence.md`。
-4. **装**：`pnpm pack` + `dsh plugin --profile web add`；上生产前可用 `scripts/verify-plugin.ps1` 在一次性 profile 里隔离验证。
+2. **校验**：`plugin_maker_check` —— 契约、发布合规、升级基线、跨版本迁移事实卡（⚠️ 项即待迁移点），升级前跑一遍。
+3. **接盘**（改别人的插件时）：`plugin_maker_vet` 出可照做的改造清单 → `plugin_maker_adopt` 自动应用其中安全、确定的那部分。
+4. **诊断工具面**（可选）：`plugin_maker_surface` —— 注册了多少模型可见工具、哪些像实现原语、值不值得收窄；`propose:true` 会附上候选操作的起步声明。判据是**有没有稳定组合**，结论可以（而且经常应该）是「不建议做」。设计依据与实测证据见 `docs/why-facade-cannot-hide-tools.md` 与 `docs/surface-evidence.md`。
+5. **装**：`pnpm pack` + `dsh plugin --profile web add`；上生产前用 `scripts/verify-plugin.ps1` 在一次性 profile 里隔离验证（组合 + 真机 boot），不会碰你正在用的 profile。
 
 **向导**：两个自带 skill（`/` 斜杠菜单可触发，模型也会按触发词自动调用）：
 
 - `/plugin-studio-wizard` —— 需求满足向导：先听懂需求（给谁用 × 为什么造两个前置问）→ 满足途径判断（本机已装 → 生态现成 → 自建），能推荐现成就不造；自建才走形态推导 → 调研 → 方案合规 → 交付。判断归向导，授权归用户。
 - `/five-step-research` —— 分类调研（平台能力/同生态/行业参照/工程实践/需求验证）。
 
+## 边界：Maker 不做什么
+
+- **不是自动生成器**：需求、架构、形态由向导和你一起定，Maker 不替你决定。
+- **不做运行时收窄**：facade 藏不掉已经暴露的工具（DSH 用单一视野解析器做呈现/查找/派发），所以 `surface` 只诊断、不改写。证据见 `docs/why-facade-cannot-hide-tools.md`、`docs/surface-evidence.md`。
+- **不沉淀教训/踩坑记录**：运行期错误与经验归 dsh-retro；那类记录会随版本过期变有害。Maker 对 bug 的要求只有一条机器可验证的——**修复同一 commit 带回归测试**。
+- **不碰 preset / cordis 组合、动态 Cordis 插件**：那是运行时组合层与会话层的活。Maker 只管常驻插件包（可发布、可验证、跟得上上游）与 skill / 脚本 / 工作流。
+
 ## 单独使用
 
-maker 是纯开发期工具：七个工具 + 两个 skill 全部无硬依赖、独立可用；动作清单里的协作条目（跨会话协同）在未安装对应协作插件时自动隐藏。**check/vet/surface 对任何插件目录工作**（不只 maker 生成的）：vet 会附「挂靠建议」——插件用了哪些官方协议面、建议挂哪些上游路径（帮助形态，不代写）；surface 会出工具面诊断与（可选）起步声明。上游盯梢自动化默认**日更**（cron 频率可自改），没变化就零输出零提交。详见 `docs/standalone.md` 与 `docs/upstream-watch.md`。
+maker 是纯开发期工具：七个工具 + 两个 skill 全部无硬依赖、独立可用；动作清单里的协作条目（跨会话协同）在未安装对应协作插件时自动隐藏。**check / vet / surface 对任何插件目录工作**（不只 maker 生成的）：vet 会附「挂靠建议」——插件用了哪些官方协议面、建议挂哪些上游路径（帮助形态，不代写）。详见 `docs/standalone.md` 与 `docs/upstream-watch.md`。
 
 ## 为什么现在开源
 
@@ -77,23 +87,23 @@ Maker 已经完成了自己的一次解耦：它最初和作者的一些配套�
 
 ## 已知缺口与路线
 
-- 现阶段最完善 = 插件形态（生成 + 校验 + 向导）；workflow / 脚本 / skill / preset 等形态由向导按需求推导，不弹形态菜单。
+- 现阶段最完善 = 插件形态（生成 + 校验 + 向导）；workflow / 脚本 / skill 等形态由向导按需求推导，不弹形态菜单。**preset / cordis 组合与动态 Cordis 插件不在 maker 范围内**（见上「边界」）。
 - 向导以 skill 形态交付：结论以文本呈现、每步末尾一个「对 / 改」确认门（`ask_user_question` 交互卡，实机可弹），全程无需额外界面；一步步点选的交互式表单卡片在路线图上，不在当前版本。
-- **0.1.2 迁移事实卡已吸收 20 条**（数据文件 `facts/migrations.mjs`，来源逐条标注；apiProxy 与依赖线两条已实测，其余社区验证、待随自测升级 verified 状态）；**maker 自身已完成 0.1.2 适配**（peer 放宽为 `^` 范围、模板与示例去掉 dsh-client-runtime 引用、自检零命中）；后续版本事实=新增数据段，不改代码。
-- **0.1.3-alpha.2 适配**：新增 0.1.2→0.1.3 事实段（SessionHandle / Session.events / ctx.agent / report / 格式 v2 / sqlite 后端 / persona 前缀后缀，逐条对照本机安装包实测），上游盯梢钉到 `dsh-v0.1.3-alpha.2`，挂靠建议清掉已移除的 apiProxy 与 dsh-client-runtime 路径。
 
 ## 目录
 
-- `lib/` —— 工具（scaffold + check + vet/adopt + checklist + impact + surface）
-- `docs/` —— 知识库（独立使用、合规清单、UX 原则、上游盯梢、工具面证据；`bugs/` 为历史档案，不再要求新增）
+- `lib/` —— 七个工具（scaffold / check / vet / adopt / impact / checklist / surface）
 - `skills/` —— 向导 skill + 调研 skill
-
-## 状态
-
-当前版本以 GitHub tags 为准（2026-08-30 起持续发版；首个公开版本 0.6.0；安装版见 package.json）
+- `facts/` —— 跨版本迁移事实卡（check 的数据源，逐条标注来源、可实测复核）
+- `scripts/` —— 上游盯梢 + 隔离验证脚本
+- `docs/` —— 知识库（独立使用、合规清单、UX 原则、上游盯梢、工具面证据；`bugs/` 为历史档案，不再要求新增）
 
 ## 安装
 
 ```
 pnpm pack && dsh plugin --profile web add file:<本目录>/dsh-plugin-maker-<版本>.tgz
 ```
+
+## 状态
+
+当前版本以 GitHub tags / Releases 为准（2026-08-30 起持续发版，首个公开版本 0.6.0；逐版本变更见 Releases）。跨版本迁移事实卡随 DSH 版本更新，不改代码只加数据段。
