@@ -6,7 +6,7 @@
   "upstreams": [
     {
       "repo": "deepseek-ai/deepseek-harness",
-      "pinned": "dsh-v0.1.5-alpha.1",
+      "pinned": "dsh-v0.1.5-rc.1",
       "watch": [
         {
           "path": "packages/bundle",
@@ -76,7 +76,7 @@
     },
     {
       "repo": "omdsh-dev/DSH-better-sidebar",
-      "pinned": "v0.18.1",
+      "pinned": "v0.19.0",
       "watch": [
         {
           "path": "src",
